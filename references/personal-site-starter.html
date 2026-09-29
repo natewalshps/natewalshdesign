@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Nathan Walsh — Starter Template</title>
+<style>
+  :root{
+    --bg: #06070a;
+    --bg-addon: #131417;
+    --text: #c7c7c7;
+    --text-dim: #6d6f75;
+    --white: #f5f5f5;
+    --accent: #e8b94f;      /* swap this one value to re-theme the whole page */
+    --accent-2: #7fa8ff;    /* secondary accent, used once */
+    --font: "Helvetica Neue", Helvetica, Arial, sans-serif; /* swap for your display face */
+    --radius: 22px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--bg); color: var(--text); font-family: var(--font); overflow-x: hidden; }
+  /* custom cursor only replaces the system one once JS confirms it's running */
+  .js body { cursor: none; }
+  ::selection { background: var(--accent); color: #06070a; }
+
+  a { color: inherit; text-decoration: none; }
+  .upper { text-transform: uppercase; }
+  .label {
+    font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim);
+  }
+
+  /* ---------- custom cursor ---------- */
+  #cursor {
+    position: fixed; top:0; left:0; width: 34px; height: 34px; border-radius: 50%;
+    border: 1px solid var(--text-dim); pointer-events: none; z-index: 999;
+    transform: translate(-50%,-50%); transition: width .2s, height .2s, border-color .2s;
+  }
+  #cursor::after{
+    content:""; position:absolute; top:50%; left:50%; width:6px; height:6px; border-radius:50%;
+    background: var(--text); transform: translate(-50%,-50%);
+  }
+  #cursor.hover{ width: 54px; height: 54px; border-color: var(--accent); }
+  @media (hover:none){ #cursor{ display:none; } body{ cursor:auto; } }
+
+  /* ---------- top ticker ---------- */
+  .ticker-bar{
+    position: fixed; top: 28px; left: 28px; z-index: 40; display:flex; align-items:center; gap: 10px;
+  }
+  .ticker-bar .tag{ color: var(--text-dim); }
+  .ticker-bar .cta{ color: var(--accent); font-weight: 600; letter-spacing: .04em; }
+
+  .brand-mark{
+    position: fixed; top: 24px; left: 50%; transform: translateX(-50%); z-index: 40;
+    font-size: 13px; letter-spacing: .3em; color: var(--white); font-weight: 600;
+  }
+
+  .have-project{
+    position: fixed; top: 26px; right: 28px; z-index: 40; font-size: 13px; letter-spacing: .04em;
+  }
+  .have-project svg{ position:absolute; top:-18px; left:-30px; width: 160px; height: 70px; z-index:-1; opacity:.6; }
+
+  /* ---------- corner card ---------- */
+  .side-card{
+    position: fixed; left: 28px; top: 50%; transform: translateY(-50%); z-index: 40;
+    max-width: 230px;
+  }
+  .side-card h2{ font-size: 15px; letter-spacing: .02em; color: var(--white); margin-bottom: 2px; }
+  .side-card p.role{ font-size: 12px; color: var(--text-dim); margin-bottom: 18px; }
+  .side-card ul{ list-style:none; font-size: 11px; color: var(--text-dim); line-height: 1.7; margin-bottom: 18px; }
+  .side-card form{ display:flex; border-bottom: 1px solid #2a2a2e; padding-bottom: 6px; }
+  .side-card input{
+    background: transparent; border: none; outline: none; color: var(--text); font-size: 12px; flex:1;
+  }
+  .side-card button{
+    background: none; border: none; color: var(--accent); font-size: 11px; letter-spacing: .06em; cursor: none;
+  }
+
+  .thumb-panel{
+    position: fixed; right: 0; top: 40%; width: 210px; height: 260px; z-index: 30;
+    background: var(--bg-addon); border-radius: var(--radius) 0 0 var(--radius);
+    transform: skewX(-6deg) translateX(30px);
+    display:flex; align-items:center; justify-content:center; opacity:.9;
+  }
+  .thumb-panel svg{ transform: skewX(6deg); width: 70px; height: 70px; opacity:.4; }
+
+  .cursor-mark{
+    position: fixed; left: 28px; bottom: 26px; z-index: 40; width: 40px; height: 40px;
+    border: 1px solid var(--text-dim); border-radius: 50%; display:flex; align-items:center; justify-content:center;
+  }
+  .cursor-mark span{ width:6px; height:6px; border-radius:50%; background: var(--text); }
+
+  .copyright{ position: fixed; right: 28px; bottom: 24px; z-index: 40; font-size: 11px; color: var(--text-dim); }
+
+  /* ---------- hero ---------- */
+  .hero{
+    height: 100vh; display:flex; flex-direction: column; align-items:center; justify-content:center;
+    text-align:center; position: relative;
+  }
+  .tagline{
+    max-width: 640px; font-size: 16px; line-height: 1.5; color: var(--text); margin-bottom: 20px;
+  }
+  .kinetic{
+    display:flex; flex-direction:column; align-items:center; gap: 4px; width: 100%;
+  }
+  .kinetic .word{
+    font-size: clamp(56px, 11vw, 150px); font-weight: 700; letter-spacing: -0.01em; color: #8a8a8a;
+    line-height: .95; text-transform: uppercase; cursor: none;
+  }
+  .kinetic .dot{
+    width: 10px; height: 10px; border-radius: 50%; border: 1px solid var(--text-dim);
+    display:flex; align-items:center; justify-content:center; margin: 6px 0;
+  }
+  .kinetic .dot::after{ content:""; width:3px; height:3px; border-radius:50%; background:var(--text-dim); }
+
+  /* ---------- sections ---------- */
+  section{ padding: 140px 10vw; position: relative; }
+  .section-label{ margin-bottom: 24px; }
+  .section-title{
+    font-size: clamp(28px, 4vw, 54px); font-weight: 700; text-transform: uppercase; line-height: 1.1;
+    max-width: 900px; color: var(--white); margin-bottom: 40px;
+  }
+  .section-title .accent{ color: var(--accent); }
+
+  .grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
+  @media (max-width: 800px){ .grid{ grid-template-columns: 1fr; } .side-card, .thumb-panel, .cursor-mark{ display:none; } }
+
+  .card{
+    background: var(--bg-addon); border-radius: var(--radius); padding: 32px; reveal: true;
+  }
+  .card .tags{ display:flex; gap:8px; margin-bottom: 14px; }
+  .card .tags span{ font-size: 10px; letter-spacing: .05em; color: var(--text-dim); border:1px solid #2a2a2e; border-radius: 20px; padding: 3px 10px; }
+  .card h3{ font-size: 22px; color: var(--white); margin-bottom: 10px; text-transform: uppercase; }
+  .card p{ font-size: 14px; color: var(--text-dim); line-height: 1.5; }
+
+  /* hidden only once GSAP has actually loaded and taken over; if the CDN script fails, content stays visible */
+  .js .reveal{ opacity: 0; transform: translateY(40px); }
+
+  footer{
+    padding: 60px 10vw 40px; display:flex; justify-content: space-between; flex-wrap:wrap; gap: 20px;
+    border-top: 1px solid #1c1c1f; font-size: 12px; color: var(--text-dim);
+  }
+</style>
+</head>
+<body>
+
+  <div id="cursor"></div>
+
+  <div class="ticker-bar">
+    <span class="tag label">Now exploring AI in design systems</span>
+    <span class="cta upper">See the write-up →</span>
+  </div>
+
+  <div class="brand-mark">NW</div>
+
+  <div class="have-project">
+    <svg viewBox="0 0 160 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="80" cy="35" rx="70" ry="18" stroke="var(--accent-2)" stroke-width="1" transform="rotate(8 80 35)"/>
+      <ellipse cx="80" cy="35" rx="70" ry="18" stroke="var(--accent-2)" stroke-width="1" transform="rotate(-10 80 35)"/>
+    </svg>
+    <a href="#contact" class="upper hover-target">Let's talk →</a>
+  </div>
+
+  <aside class="side-card">
+    <h2 class="upper">Nathan Walsh</h2>
+    <p class="role upper">Associate Creative Director</p>
+    <ul>
+      <li>Experience design at scale</li>
+      <li>Design systems &amp; UI strategy</li>
+      <li>AI-augmented workflows</li>
+    </ul>
+    <form onsubmit="return false;">
+      <input type="email" placeholder="Email for occasional notes" />
+      <button class="hover-target">Subscribe</button>
+    </form>
+  </aside>
+
+  <div class="thumb-panel">
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--text-dim)" stroke-width="1.2">
+      <path d="M7 11v9H4a1 1 0 01-1-1v-7a1 1 0 011-1h3zM7 11l3.5-7a2 2 0 013.5 1.3V9h4.5a2 2 0 011.94 2.5l-1.6 6.5A2 2 0 0117 19.5H10a3 3 0 01-3-3V11z"/>
+    </svg>
+  </div>
+
+  <div class="cursor-mark"><span></span></div>
+  <div class="copyright">2026 NATHAN WALSH</div>
+
+  <main>
+    <section class="hero">
+      <p class="tagline">I help fast-growth healthcare and enterprise platforms turn complex systems into experiences people can actually use.</p>
+      <nav class="kinetic">
+        <a href="#work" class="word hover-target">Work</a>
+        <span class="dot"></span>
+        <a href="#systems" class="word hover-target">Systems</a>
+        <span class="dot"></span>
+        <a href="#writing" class="word hover-target">Writing</a>
+      </nav>
+    </section>
+
+    <section id="work">
+      <p class="section-label label">Selected work</p>
+      <h2 class="section-title">A few systems I've helped <span class="accent">scale</span>.</h2>
+      <div class="grid">
+        <article class="card reveal">
+          <div class="tags"><span>Strategy</span><span>Design</span><span>Systems</span></div>
+          <h3>Benefits Central</h3>
+          <p>Modernizing a PBM client portal — placeholder description, replace with your own case study copy.</p>
+        </article>
+        <article class="card reveal">
+          <div class="tags"><span>Design</span><span>Prototyping</span></div>
+          <h3>NextGen UI</h3>
+          <p>Interaction and UI strategy for a large enterprise application — placeholder, swap in real results.</p>
+        </article>
+        <article class="card reveal">
+          <div class="tags"><span>Product Strategy</span><span>AI</span></div>
+          <h3>Agent Experience</h3>
+          <p>Client-facing experience strategy for an AI assistant — placeholder description.</p>
+        </article>
+        <article class="card reveal">
+          <div class="tags"><span>Design Systems</span></div>
+          <h3>Token Architecture</h3>
+          <p>Design system audit and token architecture work — placeholder, add your own project.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="systems">
+      <p class="section-label label">How I work</p>
+      <h2 class="section-title">Structure first, <span class="accent">velocity</span> second.</h2>
+      <div class="grid">
+        <article class="card reveal">
+          <h3>Frameworks over one-offs</h3>
+          <p>Placeholder — describe your player-coach approach, connecting design decisions to business and technical constraints.</p>
+        </article>
+        <article class="card reveal">
+          <h3>AI as a practical tool</h3>
+          <p>Placeholder — describe how you use AI to speed up design workflows, documentation, and research.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="writing">
+      <p class="section-label label">Writing &amp; talks</p>
+      <h2 class="section-title">Notes on <span class="accent">design at scale</span>.</h2>
+      <div class="grid">
+        <article class="card reveal">
+          <h3>Placeholder title</h3>
+          <p>Short description of an article, talk, or write-up. Link it out.</p>
+        </article>
+        <article class="card reveal">
+          <h3>Placeholder title</h3>
+          <p>Short description of an article, talk, or write-up. Link it out.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact">
+      <p class="section-label label">Get in touch</p>
+      <h2 class="section-title">Ready to <span class="accent">build</span> something?</h2>
+      <p style="max-width:480px;color:var(--text-dim);font-size:14px;">Placeholder contact copy — swap for your own email or a short form.</p>
+    </section>
+  </main>
+
+  <footer>
+    <div>Minneapolis, MN</div>
+    <div>hello@example.com</div>
+    <div>Privacy · Terms</div>
+  </footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+if (window.gsap) {
+  document.documentElement.classList.add('js');
+  gsap.registerPlugin(ScrollTrigger);
+
+  // custom cursor follow
+  const cursor = document.getElementById('cursor');
+  window.addEventListener('mousemove', e => {
+    gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.15, ease: 'power2.out' });
+  });
+  document.querySelectorAll('.hover-target, .word, a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+  });
+
+  // hero intro
+  gsap.from('.tagline', { opacity: 0, y: 20, duration: 0.8, ease: 'power2.out' });
+  gsap.from('.kinetic .word', { opacity: 0, y: 60, duration: 0.9, stagger: 0.15, delay: 0.2, ease: 'power3.out' });
+
+  // scroll reveals for cards / titles
+  gsap.utils.toArray('.reveal').forEach(el => {
+    gsap.to(el, {
+      opacity: 1, y: 0, duration: 0.8, ease: 'power2.out',
+      scrollTrigger: { trigger: el, start: 'top 85%' }
+    });
+  });
+
+  gsap.utils.toArray('.section-title').forEach(el => {
+    gsap.from(el, {
+      opacity: 0, y: 30, duration: 0.9, ease: 'power2.out',
+      scrollTrigger: { trigger: el, start: 'top 85%' }
+    });
+  });
+
+  // subtle parallax on hero words as you scroll away
+  gsap.to('.kinetic', {
+    yPercent: -15, opacity: 0.4, ease: 'none',
+    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+  });
+} // end if(window.gsap) — without it the page still reads fine, just without motion
+</script>
+</body>
+</html>

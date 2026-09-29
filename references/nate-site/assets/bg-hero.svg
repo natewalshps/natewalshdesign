@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
+  <!-- Hero background: contour rings. Replace this file with your own SVG/PNG/JPG (same filename) or change the bg-hero token in styles.css -->
+  <defs>
+    <radialGradient id="g" cx="78%" cy="30%" r="60%">
+      <stop offset="0" stop-color="#e2562f" stop-opacity=".35"/>
+      <stop offset="1" stop-color="#e2562f" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#g)"/>
+  <g fill="none" stroke="#14161a" stroke-opacity=".14" stroke-width="1.2">
+    <ellipse cx="1250" cy="300" rx="80" ry="60"/>
+    <ellipse cx="1250" cy="300" rx="160" ry="120"/>
+    <ellipse cx="1250" cy="300" rx="240" ry="180"/>
+    <ellipse cx="1250" cy="300" rx="320" ry="240"/>
+    <ellipse cx="1250" cy="300" rx="400" ry="300"/>
+    <ellipse cx="1250" cy="300" rx="480" ry="360"/>
+    <ellipse cx="1250" cy="300" rx="560" ry="420"/>
+    <ellipse cx="1250" cy="300" rx="640" ry="480"/>
+    <ellipse cx="1250" cy="300" rx="720" ry="540"/>
+    <ellipse cx="1250" cy="300" rx="800" ry="600"/>
+  </g>
+  <circle cx="1250" cy="300" r="10" fill="#e2562f"/>
+</svg>

@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your Name — Project Title</title>
+<meta name="description" content="Editorial-style portfolio project page.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+
+<!--
+=====================================================================
+  HOW TO CUSTOMISE  (search for "EDIT:" to jump to each spot)
+=====================================================================
+  1. IMAGES   Every image is an <img data-slot="..."> with a src like
+              images/challenge-1.jpg. Either drop your file into the
+              /images folder using that name, or change the src path.
+              If a file is missing, a labelled grey placeholder shows
+              automatically (with the recommended size).
+  2. VIDEO    Set the two paths in the CONFIG block at the bottom
+              (heroVideo / ctaVideo). Leave "" to keep the CSS graphic.
+  3. COLOURS  Change the variables in :root (--accent is the green).
+  4. TEXT     All copy is plain HTML — just edit it.
+=====================================================================
+-->
+
+<style>
+:root{
+  --ink:#050609;          /* near-black */
+  --paper:#ffffff;
+  --soft:#f2f2f2;         /* light grey sections */
+  --mute:#6e6e6e;         /* small labels */
+  --line:#d8d8d8;
+  --accent:#81ff28;       /* EDIT: brand green */
+  --accent-ink:#0b1a05;
+  --pad:clamp(16px,2.3vw,32px);
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:Inter,system-ui,sans-serif;background:var(--ink);color:var(--ink);font-weight:600;letter-spacing:-.04em;line-height:1.1;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img,video{display:block;max-width:100%}
+.up{text-transform:uppercase}
+.label{font-size:12px;font-weight:600;letter-spacing:-.03em;line-height:1.1;color:var(--mute)}
+.wrap{padding-inline:var(--pad)}
+
+/* ---------- Background graphics ---------- */
+/* Vertical-line stripe band */
+.stripes{height:clamp(60px,8vw,110px);background:repeating-linear-gradient(90deg,#d4d4d4 0 1px,transparent 1px 11px);background-color:var(--paper)}
+.stripes.tall{height:clamp(140px,21vw,300px)}
+.stripes.on-soft{background-color:var(--soft)}
+/* Film grain */
+.grain::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.22;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+/* Ribbed "silk" graphic used when no video is set */
+.silk{position:absolute;inset:-10%;background:
+  repeating-radial-gradient(ellipse 120% 70% at 20% 110%,#1b1b1b 0 5px,#d9d9d9 9px,#8a8a8a 14px,#262626 20px),
+  repeating-radial-gradient(ellipse 90% 60% at 95% 5%,transparent 0 10px,rgba(255,255,255,.14) 14px,transparent 22px);
+  background-blend-mode:normal;filter:grayscale(1) contrast(1.05);animation:drift 22s ease-in-out infinite alternate}
+@keyframes drift{from{transform:translate3d(-2%,0,0) scale(1.04)}to{transform:translate3d(2%,-2%,0) scale(1.12)}}
+.bg-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.bg-video:not([src]){display:none}
+.shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.05) 40%,rgba(0,0,0,.55))}
+
+/* ---------- Image slots ---------- */
+.slot{position:relative;overflow:hidden;background:#dcdcdc}
+.slot img{width:100%;height:100%;object-fit:cover}
+.slot.dark{background:#1d1d1f}
+
+/* ---------- Header ---------- */
+header.top{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;justify-content:space-between;align-items:flex-start;padding:14px var(--pad);color:#fff;mix-blend-mode:difference;pointer-events:none}
+header.top>*{pointer-events:auto}
+.logo{font-size:clamp(24px,2.9vw,40px);font-weight:700;letter-spacing:-.07em;line-height:1}
+nav.main{display:flex;gap:clamp(8px,1vw,14px);font-size:clamp(13px,1.2vw,16px);font-weight:700;letter-spacing:-.04em;text-transform:uppercase;margin-top:4px}
+nav.main a{position:relative}
+nav.main a::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+nav.main a:hover::after{transform:scaleX(1)}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;min-height:max(100vh,640px);background:var(--ink);color:#fff;overflow:hidden;display:flex;flex-direction:column;padding:130px var(--pad) var(--pad)}
+.hero>*{position:relative;z-index:2}
+.hero .art{position:absolute;inset:0;z-index:0;overflow:hidden}
+.hero .art *{z-index:auto}
+.intro-row{display:grid;grid-template-columns:1fr minmax(240px,400px) 1fr;gap:16px;align-items:start}
+.intro-row .rule{height:1px;background:rgba(255,255,255,.6);margin-top:6px}
+.intro-row .tag{color:var(--accent);font-size:12px;margin-bottom:8px}
+.intro-row p.desc{font-size:16px;letter-spacing:-.04em;line-height:1.1}
+.hero h1.title{font-size:clamp(56px,8.6vw,150px);font-weight:800;letter-spacing:-.07em;line-height:.8;text-transform:uppercase;margin-top:clamp(28px,5vw,64px)}
+.hero h1.title span{display:block}
+.hero h1.title span+span{color:var(--accent);padding-left:.72em}
+.hero-foot{margin-top:auto;padding-top:60px;display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:end}
+.hero-foot p.copy{font-size:clamp(15px,1.9vw,20px);letter-spacing:-.06em;line-height:1.1;max-width:500px;justify-self:start;margin-left:clamp(0px,7vw,110px)}
+.hero-foot .label{color:#fff}
+.hero-foot .label:last-child{margin-right:clamp(90px,16vw,260px)}
+.hero .year{position:absolute;right:var(--pad);bottom:-.16em;z-index:1;font-size:clamp(70px,8.6vw,150px);font-weight:800;letter-spacing:-.07em;line-height:.8;color:rgba(255,255,255,.9)}
+
+/* ---------- Project header ---------- */
+.proj{background:var(--paper);padding:clamp(56px,8vw,80px) 0 0}
+.proj h2{font-size:clamp(44px,6.6vw,110px);font-weight:700;letter-spacing:-.06em;line-height:1;text-transform:uppercase;margin-top:18px}
+.proj .sub{font-size:16px;font-weight:700;text-transform:uppercase;margin-top:clamp(18px,3vw,40px);letter-spacing:-.04em}
+.proj .split{display:grid;grid-template-columns:1fr minmax(240px,28%);margin-top:clamp(20px,3vw,40px);border-top:1px solid var(--line)}
+.proj .split h4{font-size:clamp(22px,3vw,44px);font-weight:700;letter-spacing:-.04em;line-height:1;text-transform:uppercase;max-width:520px;padding:clamp(16px,2vw,32px) var(--pad) 0}
+.live{background:var(--accent);color:var(--ink);padding:clamp(16px,2vw,32px);display:flex;flex-direction:column;justify-content:space-between;min-height:clamp(150px,15vw,220px);transition:background .3s}
+.live:hover{background:#9cff58}
+.live .row{display:flex;justify-content:space-between;font-size:20px;letter-spacing:-.06em;text-transform:uppercase}
+.live .row svg{width:26px;height:16px;transition:transform .35s var(--ease)}
+.live:hover .row svg{transform:translateX(6px)}
+.live small{font-size:12px;letter-spacing:-.03em;line-height:1.1;max-width:120px}
+.meta{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:24px;padding:clamp(24px,4vw,56px) var(--pad) clamp(40px,6vw,88px);background:var(--paper)}
+.meta .v{font-size:16px;line-height:1.1;padding-bottom:16px;border-bottom:1px solid var(--line);width:fit-content;min-width:70%;margin-bottom:12px}
+.meta .k{font-size:12px;color:#adadad;text-transform:uppercase}
+
+/* ---------- Content sections ---------- */
+section.pane{position:relative;padding:clamp(40px,6vw,80px) var(--pad)}
+.light{background:var(--paper)}
+.gray{background:var(--soft)}
+.dark{background:var(--ink);color:#f2f2f2}
+.h-xl{font-size:clamp(40px,6.6vw,110px);font-weight:700;letter-spacing:-.06em;line-height:1;text-transform:uppercase}
+.h-lg{font-size:clamp(24px,3vw,44px);font-weight:700;letter-spacing:-.06em;line-height:1;text-transform:uppercase}
+.lead{font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:-.04em;line-height:1;max-width:600px;margin-top:clamp(20px,2.4vw,36px)}
+.body{font-size:16px;color:var(--mute);line-height:1.1;max-width:500px}
+.hr{border:0;height:1px;background:var(--line);margin-block:clamp(24px,3vw,44px)}
+.dark .label{margin-bottom:clamp(30px,5vw,60px)}
+.dark .h-lg{color:#f2f2f2;max-width:1000px}
+.dark .h-lg{font-size:clamp(24px,3.2vw,46px)}
+.caption{display:flex;gap:10px;align-items:flex-start;font-size:12px;color:#4a4a4a;letter-spacing:-.03em;line-height:1.1;max-width:320px;margin:24px 0 0 12px}
+.caption::before{content:"";width:3px;align-self:stretch;min-height:26px;background:var(--ink)}
+.pane.tight-top{padding-top:clamp(20px,3vw,40px)}
+.img-wide{aspect-ratio:1006/436}
+.stagger{background:var(--paper);display:flex;flex-direction:column}
+.stagger .row{width:50%;padding:0}
+.stagger .row.r{margin-left:auto}
+.stagger .slot{aspect-ratio:527/436}
+.stagger .caption{margin:16px var(--pad) 40px}
+.tags p{font-size:16px;line-height:1.1}
+.tags{margin-top:clamp(40px,6vw,90px)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:0;background:var(--paper)}
+.two .txt{padding:clamp(40px,6vw,80px) var(--pad)}
+.two .slot{min-height:clamp(320px,64vw,679px)}
+.two.flip .slot{min-height:clamp(320px,57vw,600px)}
+.two .txt.end{display:flex;flex-direction:column;justify-content:flex-start}
+.two.flip .txt h3.h-lg{font-size:clamp(24px,3vw,44px)}
+.note{font-size:14px;letter-spacing:-.04em;line-height:1.1;text-align:right;max-width:460px;margin:clamp(60px,8vw,160px) 0 0 auto;color:#3a3a3a}
+.ach{display:grid;grid-template-columns:1.5fr 1fr;gap:clamp(20px,3vw,48px);align-items:start}
+.ach .lead{border-left:3px solid var(--ink);padding-left:12px;max-width:680px}
+.ach .slot{aspect-ratio:1/.77;max-width:420px;justify-self:end;width:100%}
+
+/* testimonial + stats */
+.echo{position:relative;background:var(--soft);padding:clamp(40px,5vw,60px) var(--pad) clamp(60px,8vw,110px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,64px);overflow:hidden}
+.echo .qmark{position:absolute;left:clamp(20px,4vw,60px);top:clamp(70px,9vw,110px);font-size:clamp(200px,28vw,420px);font-weight:800;line-height:.8;color:#e4e4e4;font-family:Georgia,serif;letter-spacing:0;pointer-events:none}
+.echo h3{font-size:clamp(18px,1.9vw,24px);font-weight:700;letter-spacing:-.06em;position:relative}
+.quote{position:relative;display:flex;gap:14px;margin-top:clamp(120px,17vw,250px);align-items:flex-start}
+.quote .slot{flex:0 0 90px;height:107px}
+.quote blockquote{border-left:3px solid var(--ink);padding-left:10px;font-size:14px;font-weight:700;letter-spacing:-.04em;line-height:1.1;max-width:400px}
+.quote cite{display:block;font-style:normal;margin-top:14px}
+.quote cite b{display:block;font-size:12px;font-weight:700}
+.quote cite span{font-size:11px;color:#555;font-weight:600}
+.stats>div{margin-bottom:clamp(30px,4vw,56px);position:relative}
+.stats h4{font-size:clamp(18px,1.9vw,24px);text-transform:uppercase;letter-spacing:-.06em;color:#999;padding-bottom:12px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.stats p{font-size:16px;font-weight:700;text-transform:uppercase;color:#aaa;line-height:1.1;letter-spacing:-.04em}
+
+/* video CTA */
+.cta{position:relative;min-height:clamp(420px,52vw,620px);background:var(--ink);color:#fff;overflow:hidden;padding:clamp(40px,5vw,60px) var(--pad);display:flex;flex-direction:column;justify-content:space-between}
+.cta .art{position:absolute;inset:0;overflow:hidden}
+.cta>*:not(.art){position:relative;z-index:2}
+.cta h2{font-size:clamp(54px,8.6vw,150px);font-weight:800;letter-spacing:-.07em;line-height:.8;text-transform:uppercase}
+.cta h2 span{display:block}
+.cta h2 span+span{padding-left:.68em}
+.cta p{font-size:clamp(15px,2vw,26px);font-weight:700;text-transform:uppercase;letter-spacing:-.05em;max-width:820px;margin-top:clamp(30px,5vw,70px);line-height:1}
+.chip{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:var(--ink);padding:4px 8px;font-size:20px;letter-spacing:-.06em;width:fit-content;margin-top:24px}
+.chip svg{width:22px;height:14px}
+
+.share{background:var(--paper);text-align:center;padding:clamp(48px,7vw,90px) var(--pad) clamp(40px,6vw,80px)}
+.share h5{font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:-.04em;margin-bottom:34px}
+.share ul{list-style:none;display:flex;gap:clamp(12px,2.6vw,30px);justify-content:center}
+.share a{display:grid;place-items:center;width:40px;height:40px;font-size:15px;font-weight:700;border-radius:50%;transition:background .25s,color .25s}
+.share a:hover{background:var(--ink);color:#fff}
+.share svg{width:18px;height:18px;fill:currentColor}
+
+/* more projects */
+.more{background:var(--soft)}
+.more .bigword{background:var(--paper);overflow:hidden;padding:0 var(--pad)}
+.more .bigword div{font-weight:800;letter-spacing:-.07em;line-height:.85;text-transform:uppercase;color:#d9d9d9;white-space:nowrap;padding-top:clamp(20px,3vw,40px);font-size:clamp(50px,13vw,250px)}
+.more .stripes{background-color:var(--paper)}
+.prow{display:grid;grid-template-columns:clamp(120px,21vw,222px) 1fr auto;gap:clamp(16px,2.5vw,36px);align-items:center;padding:40px var(--pad);background:var(--soft);transition:background .3s}
+.prow .slot{aspect-ratio:222/125}
+.prow:hover{background:#e9e9e9}
+.prow h3{font-size:clamp(20px,2.4vw,32px);font-weight:700;text-transform:uppercase;letter-spacing:-.05em;line-height:1}
+.prow p{font-size:clamp(11px,1.1vw,16px);font-weight:700;text-transform:uppercase;letter-spacing:-.04em;margin-top:14px;max-width:700px}
+.prow svg{width:40px;height:22px;transition:transform .35s var(--ease)}
+.prow:hover svg{transform:translateX(10px)}
+.prow .cap{display:none}
+
+/* ---------- Footer ---------- */
+footer{background:var(--accent);color:var(--accent-ink);position:relative;overflow:hidden}
+footer .stripes{background:repeating-linear-gradient(90deg,rgba(0,0,0,.35) 0 1px,transparent 1px 11px);height:clamp(40px,5vw,60px)}
+footer .name{padding:0 var(--pad);overflow:hidden;border-bottom:1px solid rgba(0,0,0,.6)}
+footer .name div{font-size:clamp(60px,15vw,260px);font-weight:700;letter-spacing:-.075em;line-height:.9;white-space:nowrap;color:#20421a}
+footer .info{display:grid;grid-template-columns:1.1fr .9fr 1fr;gap:24px;padding:clamp(20px,2.5vw,32px) var(--pad);border-bottom:1px solid rgba(0,0,0,.6);color:#20421a}
+footer .contact{border-left:6px solid #20421a;padding-left:14px}
+footer .contact p:first-child{font-size:clamp(20px,2vw,26px);letter-spacing:-.05em}
+footer .contact p+p{font-size:16px;margin-top:14px}
+footer .studio h5{font-size:16px;text-transform:uppercase;letter-spacing:-.04em}
+footer .studio address{font-family:"IBM Plex Mono",monospace;font-style:normal;font-weight:400;font-size:11px;letter-spacing:0;line-height:1.5;margin-top:10px;text-transform:uppercase}
+footer .links{display:grid;grid-template-columns:1fr 1fr;gap:16px;border-left:6px solid #20421a;padding-left:14px;font-size:clamp(14px,1.2vw,16px);text-transform:uppercase;letter-spacing:-.04em;font-weight:700}
+footer .links ul{list-style:none;display:grid;gap:8px;align-content:start}
+footer .links a:hover{text-decoration:underline}
+footer .giant{padding:0 var(--pad);overflow:hidden;border-bottom:1px solid rgba(0,0,0,.6)}
+footer .giant div{font-weight:800;letter-spacing:-.075em;line-height:.8;text-transform:uppercase;color:var(--ink);white-space:nowrap;padding-top:.06em;font-size:clamp(70px,22vw,400px)}
+footer .base{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px var(--pad);font-size:12px;color:#20421a;letter-spacing:-.03em}
+footer .base a{display:inline-flex;align-items:center;gap:6px}
+
+/* ---------- Reveal ---------- */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.silk{animation:none}html{scroll-behavior:auto}}
+
+/* ---------- Responsive ---------- */
+@media (max-width:820px){
+  .intro-row{grid-template-columns:1fr}.intro-row .rule{display:none}
+  .hero-foot{grid-template-columns:1fr 1fr}.hero-foot p.copy{grid-column:1/-1;order:-1;margin:0}
+  .proj .split{grid-template-columns:1fr}
+  .meta{grid-template-columns:1fr 1fr}
+  .stagger .row{width:100%}
+  .two,.echo,.ach{grid-template-columns:1fr}
+  .two .slot{min-height:0;aspect-ratio:1/1}.two.flip{display:flex;flex-direction:column-reverse}
+  .ach .slot{justify-self:start}
+  .quote{margin-top:130px}
+  .prow{grid-template-columns:96px 1fr auto;padding:24px var(--pad)}
+  footer .info{grid-template-columns:1fr}
+  nav.main{gap:8px}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="top">
+  <a class="logo" href="#top">yourname</a> <!-- EDIT: wordmark -->
+  <nav class="main">
+    <a href="#work">Work</a><a href="#about">About</a><a href="#thoughts">Thoughts</a><a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main id="top">
+
+<!-- ============ HERO (video or CSS graphic) ============ -->
+<section class="hero grain">
+  <div class="art">
+    <div class="silk"></div>
+    <video class="bg-video" data-video="hero" autoplay muted loop playsinline></video>
+    <div class="shade"></div>
+  </div>
+
+  <div class="intro-row">
+    <div class="rule"></div>
+    <div><p class="tag">INDX</p><p class="desc">A one-line summary of the project — what it is and why it matters.</p></div>
+    <div class="rule"></div>
+  </div>
+
+  <h1 class="title"><span>Project</span><span>Title</span></h1>
+
+  <div class="hero-foot">
+    <span class="label">Inspiration</span>
+    <p class="copy">Two or three sentences that set up the story. What sparked the idea, and what the work is really about.</p>
+    <span class="label">Released</span>
+  </div>
+  <div class="year">2026</div> <!-- EDIT: year -->
+</section>
+
+<!-- ============ PROJECT HEADER ============ -->
+<section class="proj" id="work">
+  <div class="wrap">
+    <p class="label">(Project)</p>
+    <h2>Project Title</h2>
+    <p class="sub">A short line describing the project.</p>
+  </div>
+  <div class="split">
+    <h4>A bold summary statement about what you made and how.</h4>
+    <a class="live" href="#" target="_blank" rel="noopener"><!-- EDIT: live link -->
+      <div class="row"><span>Live Project</span>
+        <svg viewBox="0 0 26 16" fill="currentColor"><path d="M0 0l11 8-11 8zM13 0l11 8-11 8z"/></svg></div>
+      <small>EXPLORE THE FULL EXPERIENCE</small>
+    </a>
+  </div>
+  <div class="stripes tall"></div>
+  <div class="meta">
+    <div><div class="v">Type of work one<br>Type of work two<br>Type of work three</div><div class="k">Type of work</div></div>
+    <div><div class="v">Client Name</div><div class="k">Client</div></div>
+    <div><div class="v">8 weeks</div><div class="k">Timeframe</div></div>
+    <div><div class="v">Oct 2026</div><div class="k">Released</div></div>
+  </div>
+</section>
+
+<!-- ============ INTRODUCTION (dark + grain) ============ -->
+<section class="pane dark grain" style="padding-top:clamp(70px,12vw,160px);padding-bottom:clamp(60px,8vw,120px)">
+  <p class="label rv">(Introduction)</p>
+  <h3 class="h-lg rv">An introduction to the project in a few punchy sentences. Set the scene, name the problem, and hint at the outcome so people keep scrolling.</h3>
+</section>
+
+<!-- ============ APPROACH ============ -->
+<section class="pane light">
+  <p class="label rv">(Approach)</p>
+  <h3 class="h-lg rv" style="margin-top:34px;max-width:1000px;color:var(--ink)">A headline that describes how you approached the work.</h3>
+  <p class="lead rv">A short supporting sentence that expands on the headline in two lines.</p>
+  <hr class="hr">
+  <p class="body rv">A paragraph of supporting detail. Explain the decisions you made, the constraints you worked within, and what you learned along the way. Keep it to a few lines.</p>
+</section>
+<section class="pane light tight-top" style="padding-top:0">
+  <div class="slot img-wide rv"><img data-slot="approach-1" src="images/approach-1.jpg" alt="Approach image" data-ph="Approach — 2012×872"></div>
+  <p class="caption">Caption for the image above. Add context or credit here.</p>
+</section>
+
+<!-- ============ CHALLENGE ============ -->
+<section class="pane light" style="padding-bottom:clamp(30px,4vw,60px)">
+  <p class="label rv">(Challenge)</p>
+  <h2 class="h-xl rv" style="margin-top:34px;max-width:1000px">The challenge, stated as a bold sentence.</h2>
+  <p class="lead rv">One or two lines describing the tension or constraint you had to solve for.</p>
+</section>
+<section class="stagger">
+  <div class="row"><div class="slot rv"><img data-slot="challenge-1" src="images/challenge-1.jpg" alt="" data-ph="Challenge 1 — 1054×872"></div><p class="caption">Caption for challenge image one.</p></div>
+  <div class="row r"><div class="slot rv"><img data-slot="challenge-2" src="images/challenge-2.jpg" alt="" data-ph="Challenge 2 — 1054×872"></div><p class="caption">Caption for challenge image two.</p></div>
+  <div class="row"><div class="slot rv"><img data-slot="challenge-3" src="images/challenge-3.jpg" alt="" data-ph="Challenge 3 — 1054×872"></div><p class="caption">Caption for challenge image three.</p></div>
+</section>
+
+<!-- ============ SOLUTION ============ -->
+<section class="two">
+  <div class="txt">
+    <p class="label">(Solution)</p>
+    <h3 class="h-lg rv" style="margin-top:34px;max-width:480px">The solution as a bold statement. What you did about it.</h3>
+    <p class="lead rv">A couple of lines on the key moves you made.</p>
+    <div class="tags rv"><p>Deliverable one</p><p>Deliverable two</p><p>Deliverable three</p></div>
+  </div>
+  <div class="slot"><img data-slot="solution-1" src="images/solution-1.jpg" alt="" data-ph="Solution 1 — 1054×1358"></div>
+</section>
+<section class="two flip">
+  <div class="slot"><img data-slot="solution-2" src="images/solution-2.jpg" alt="" data-ph="Solution 2 — 1054×1200"></div>
+  <div class="txt">
+    <h3 class="h-lg rv" style="max-width:480px">A closing statement on the result and what it achieved.</h3>
+    <p class="note rv">A small right-aligned note with a supporting sentence or pull-out detail about the outcome.</p>
+  </div>
+</section>
+
+<!-- ============ ACHIEVEMENTS ============ -->
+<section class="pane gray" style="padding-bottom:0">
+  <p class="label rv">(Achievements)</p>
+  <div class="ach" style="margin-top:34px">
+    <div>
+      <h3 class="h-lg rv">What the project achieved, in one line.</h3>
+      <p class="lead rv" style="margin-top:34px">A sentence about the impact — results, reactions, or lessons.</p>
+    </div>
+    <div class="slot"><img data-slot="achievement" src="images/achievement.jpg" alt="" data-ph="Achievement — 840×650"></div>
+  </div>
+  <div class="stripes on-soft" style="margin:clamp(30px,5vw,70px) calc(var(--pad)*-1) 0;height:clamp(50px,7vw,76px);background-color:var(--soft)"></div>
+</section>
+
+<section class="echo" id="thoughts">
+  <div class="qmark">“</div>
+  <div>
+    <h3>Echoes From The Audience</h3>
+    <div class="quote">
+      <div class="slot"><img data-slot="avatar" src="images/avatar.jpg" alt="" data-ph="Avatar — 180×214"></div>
+      <div>
+        <blockquote>“A short testimonial from a client or collaborator goes here. Two to four lines about what it was like to work with you.”</blockquote>
+        <cite><b>Person Name</b><span>Company or Role</span></cite>
+      </div>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="rv"><h4>Result One</h4><p>A one-line description of the first outcome or metric.</p></div>
+    <div class="rv"><h4>Result Two</h4><p>A one-line description of the second outcome or metric.</p></div>
+    <div class="rv"><h4>Result Three</h4><p>A one-line description of the third outcome or metric.</p></div>
+  </div>
+</section>
+
+<!-- ============ VIDEO CTA ============ -->
+<section class="cta grain">
+  <div class="art"><div class="silk"></div><video class="bg-video" data-video="cta" autoplay muted loop playsinline></video><div class="shade"></div></div>
+  <h2><span>Project</span><span>Title</span></h2>
+  <div>
+    <p>A closing line that invites people to see the full project or get in touch about something similar.</p>
+    <a class="chip" href="#" target="_blank" rel="noopener">Live Project <svg viewBox="0 0 26 16" fill="currentColor"><path d="M0 0l11 8-11 8zM13 0l11 8-11 8z"/></svg></a>
+  </div>
+</section>
+
+<!-- ============ SHARE ============ -->
+<section class="share">
+  <h5>Share this project on social</h5>
+  <ul>
+    <li><a href="#" aria-label="X"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a></li>
+    <li><a href="#" aria-label="Facebook">f</a></li>
+    <li><a href="#" aria-label="LinkedIn">in</a></li>
+    <li><a href="#" aria-label="Reddit">r</a></li>
+    <li><a href="#" aria-label="WhatsApp">wa</a></li>
+    <li><a href="#" aria-label="Telegram">tg</a></li>
+  </ul>
+</section>
+
+<!-- ============ MORE PROJECTS ============ -->
+<section class="more">
+  <div class="bigword"><div data-fit>More projects</div></div>
+  <div class="stripes" style="height:clamp(50px,7vw,100px)"></div>
+  <a class="prow" href="#"><div class="slot"><img data-slot="more-1" src="images/more-1.jpg" alt="" data-ph="More 1 — 444×250"></div><div><h3>Project Two</h3><p>A short one-line description of the project.</p></div><svg viewBox="0 0 40 22" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M0 11h38M28 1l10 10-10 10"/></svg></a>
+  <a class="prow" href="#"><div class="slot"><img data-slot="more-2" src="images/more-2.jpg" alt="" data-ph="More 2 — 444×250"></div><div><h3>Project Three</h3><p>A short one-line description of the project.</p></div><svg viewBox="0 0 40 22" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M0 11h38M28 1l10 10-10 10"/></svg></a>
+  <a class="prow" href="#"><div class="slot"><img data-slot="more-3" src="images/more-3.jpg" alt="" data-ph="More 3 — 444×250"></div><div><h3>Project Four</h3><p>A short one-line description of the project.</p></div><svg viewBox="0 0 40 22" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M0 11h38M28 1l10 10-10 10"/></svg></a>
+  <a class="prow" href="#"><div class="slot"><img data-slot="more-4" src="images/more-4.jpg" alt="" data-ph="More 4 — 444×250"></div><div><h3>Project Five</h3><p>A short one-line description of the project.</p></div><svg viewBox="0 0 40 22" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M0 11h38M28 1l10 10-10 10"/></svg></a>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer id="contact">
+  <div class="stripes"></div>
+  <div class="name"><div data-fit>Your Name</div></div> <!-- EDIT: name -->
+  <div class="info" id="about">
+    <div class="contact"><p>(000) 000 0000</p><p>hello@yourdomain.com</p></div>
+    <div class="studio"><h5>Studio / City</h5><address>Street address<br>Neighbourhood<br>City, ST 00000<br>Country</address></div>
+    <div class="links">
+      <ul><li><a href="#top">Home</a></li><li><a href="#work">Work</a></li><li><a href="#about">About</a></li><li><a href="#thoughts">Thoughts</a></li><li><a href="#contact">Contact</a></li><li><a href="#">Privacy Policy</a></li></ul>
+      <ul><li><a href="#">Vimeo</a></li><li><a href="#">YouTube</a></li><li><a href="#">Instagram</a></li><li><a href="#">X (Twitter)</a></li><li><a href="#">LinkedIn</a></li></ul>
+    </div>
+  </div>
+  <div class="giant"><div data-fit>Portfolio</div></div> <!-- EDIT: giant footer word -->
+  <div class="base"><span>© 2026 Your Name. All work, all rights reserved.</span><a href="#top" aria-label="Back to top">↑</a><span></span></div>
+</footer>
+
+<script>
+/* ==================== CONFIG — EDIT: ==================== */
+const CONFIG = {
+  heroVideo: "",   // e.g. "video/hero.mp4"  (leave "" to use the CSS silk graphic)
+  ctaVideo:  ""    // e.g. "video/cta.mp4"
+};
+/* ======================================================== */
+
+// Videos
+document.querySelectorAll('video[data-video]').forEach(v=>{
+  const src = v.dataset.video==='hero' ? CONFIG.heroVideo : CONFIG.ctaVideo;
+  if(src){ v.src = src; v.addEventListener('loadeddata',()=>{ const s=v.parentElement.querySelector('.silk'); if(s) s.style.display='none'; }); }
+});
+
+// Image placeholders: if a file is missing, show a labelled grey block
+function placeholder(label){
+  const [name,size]=(label||'Image').split(' — ');
+  const svg=`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 600' preserveAspectRatio='xMidYMid slice'>
+  <rect width='800' height='600' fill='#d9d9d9'/>
+  <path d='M0 600L280 330l150 140 110-90L800 610z' fill='#c6c6c6'/><circle cx='590' cy='170' r='46' fill='#c6c6c6'/>
+  <g font-family='Inter,Arial,sans-serif' text-anchor='middle' fill='#7a7a7a'>
+  <text x='400' y='290' font-size='30' font-weight='700'>${name}</text>
+  <text x='400' y='330' font-size='20'>${size?'Recommended '+size:'Replace me'}</text></g></svg>`;
+  return 'data:image/svg+xml;utf8,'+encodeURIComponent(svg);
+}
+document.querySelectorAll('img[data-slot]').forEach(img=>{
+  const fallback=()=>{ if(img.dataset.failed) return; img.dataset.failed=1; img.src=placeholder(img.dataset.ph||img.dataset.slot); };
+  img.addEventListener('error',fallback);
+  if(img.complete && img.naturalWidth===0) fallback();
+});
+
+// Fit giant words to container width
+function fit(){
+  document.querySelectorAll('[data-fit]').forEach(el=>{
+    const box=el.parentElement, avail=box.clientWidth-parseFloat(getComputedStyle(box).paddingLeft)*2;
+    el.style.display='inline-block';el.style.fontSize='100px';
+    const w=el.getBoundingClientRect().width;
+    el.style.fontSize=Math.min(100*avail/w, 520)+'px';
+  });
+}
+document.fonts && document.fonts.ready.then(fit); addEventListener('resize',fit); addEventListener('load',fit); fit();
+
+// Scroll reveal
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

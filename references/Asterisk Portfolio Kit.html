@@ -1,0 +1,552 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Asterisk Portfolio Kit</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  /* ---------- tokens ---------- */
+  :root{
+    --ink:#0b0b0c;
+    --ink-soft:#57544f;
+    --paper:#f6f3ee;
+    --paper-raised:#ffffff;
+    --card:#efeae2;
+    --line:#e1dad0;
+    --accent:#ff4b2e;
+    --accent-ink:#fff8f5;
+    --accent-soft:rgba(255,75,46,.12);
+    --shadow:0 1px 0 rgba(11,11,12,.04);
+
+    --font-display:'Bricolage Grotesque', system-ui, sans-serif;
+    --font-body:'Work Sans', system-ui, sans-serif;
+    --font-mono:'IBM Plex Mono', ui-monospace, monospace;
+
+    color-scheme: light dark;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ink:#f3f1ec;
+      --ink-soft:#b6b0a6;
+      --paper:#0c0c0d;
+      --paper-raised:#151516;
+      --card:#1a1a1b;
+      --line:#2b2a28;
+      --accent:#ff5c3d;
+      --accent-ink:#150a08;
+      --accent-soft:rgba(255,92,61,.16);
+      --shadow:0 1px 0 rgba(255,255,255,.04);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#f3f1ec;
+    --ink-soft:#b6b0a6;
+    --paper:#0c0c0d;
+    --paper-raised:#151516;
+    --card:#1a1a1b;
+    --line:#2b2a28;
+    --accent:#ff5c3d;
+    --accent-ink:#150a08;
+    --accent-soft:rgba(255,92,61,.16);
+    --shadow:0 1px 0 rgba(255,255,255,.04);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--font-body);
+    padding-left:max(20px, env(safe-area-inset-left, 0px));
+    padding-right:max(20px, env(safe-area-inset-right, 0px));
+    overflow-x:hidden;
+  }
+  h1,h2,h3{font-family:var(--font-display); text-wrap:balance; margin:0;}
+  p{margin:0;}
+  a{color:inherit;}
+  .wrap{max-width:1180px; margin:0 auto;}
+  ::selection{background:var(--accent); color:var(--accent-ink);}
+
+  /* ---------- nav ---------- */
+  .nav{
+    position:sticky; top:env(safe-area-inset-top, 0px); z-index:40;
+    margin:0 -20px; padding:18px 20px;
+    display:flex; align-items:center; justify-content:space-between;
+    background:transparent;
+    transition:background .35s ease, color .35s ease, border-color .35s ease;
+    border-bottom:1px solid transparent;
+  }
+  .nav.solid{ background:color-mix(in srgb, var(--paper) 92%, transparent); backdrop-filter:blur(8px); border-color:var(--line); }
+  .nav.on-dark{ color:#fdfaf7; }
+  .logo{ font-family:var(--font-display); font-weight:700; font-size:18px; letter-spacing:-.02em; display:flex; align-items:center; gap:2px;}
+  .logo .mark{ color:var(--accent); }
+  .nav-toggle{
+    width:38px; height:38px; border-radius:999px; border:1px solid currentColor;
+    background:transparent; color:inherit; font-family:var(--font-mono); font-size:18px;
+    display:grid; place-items:center; cursor:pointer; transition:transform .3s ease, background .3s ease;
+  }
+  .nav-toggle:hover{ background:var(--accent-soft); }
+  body.nav-open .nav-toggle{ transform:rotate(45deg); }
+
+  .nav-bar{
+    position:sticky; top:calc(env(safe-area-inset-top,0px) + 74px); z-index:39;
+    margin:0 -20px; overflow:hidden;
+    max-height:0; opacity:0;
+    background:var(--accent); color:var(--accent-ink);
+    transition:max-height .4s ease, opacity .3s ease;
+  }
+  body.nav-open .nav-bar{ max-height:70px; opacity:1; }
+  .nav-bar-inner{ display:flex; align-items:center; justify-content:space-between; padding:14px 20px; }
+  .crumb{ font-family:var(--font-mono); font-size:13px; }
+  .crumb sup{ font-size:10px; }
+  .pill{
+    display:inline-flex; align-items:center; gap:10px; padding:8px 8px 8px 18px;
+    background:var(--paper-raised); color:var(--ink); border-radius:999px; font-size:14px; font-weight:600;
+    border:none; cursor:pointer; text-decoration:none; font-family:var(--font-body);
+  }
+  .pill .dot{ width:26px; height:26px; border-radius:50%; background:var(--accent); color:var(--accent-ink); display:grid; place-items:center; font-size:13px; }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative; margin:0 -20px 0; min-height:min(88vh, 780px);
+    display:flex; flex-direction:column; justify-content:flex-end;
+    padding:40px 20px 56px;
+    color:#fdfaf7; overflow:hidden;
+  }
+  .hero-bg{
+    position:absolute; inset:0; z-index:-1;
+    background:
+      radial-gradient(120% 90% at 82% 10%, rgba(255,120,80,.35), transparent 60%),
+      radial-gradient(90% 70% at 15% 95%, rgba(255,75,46,.25), transparent 55%),
+      linear-gradient(200deg, #17181b 0%, #0a0a0b 55%, #050506 100%);
+  }
+  .hero-bg::after{
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(0deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.15) 45%, rgba(0,0,0,.35) 100%);
+  }
+  .hero-tag{ font-family:var(--font-mono); font-size:13px; letter-spacing:.04em; opacity:.85; margin-bottom:18px;}
+  .hero h1{
+    font-size:clamp(2.6rem, 9vw, 7rem); font-weight:700; line-height:.9; letter-spacing:-.03em;
+    margin-bottom:22px;
+  }
+  .hero h1 .accent{ color:var(--accent); }
+  .hero-sub{ max-width:44ch; font-size:clamp(1rem,2vw,1.15rem); color:#e9e4dd; margin-bottom:30px; }
+  .hero-cta{ display:flex; align-items:center; gap:18px; flex-wrap:wrap; }
+  .btn{
+    display:inline-flex; align-items:center; gap:10px; padding:8px 8px 8px 20px;
+    background:var(--paper-raised); color:var(--ink); border-radius:999px; font-weight:600; font-size:15px;
+    text-decoration:none; border:none; cursor:pointer; font-family:var(--font-body);
+  }
+  .btn .dot{ width:30px; height:30px; border-radius:50%; background:var(--accent); color:var(--accent-ink); display:grid; place-items:center; font-size:15px;}
+  .link-ghost{ font-weight:600; font-size:15px; text-decoration:underline; text-underline-offset:4px; color:#fdfaf7; }
+  .chevron{ position:absolute; right:28px; bottom:26px; font-family:var(--font-mono); font-size:20px; animation:bob 2.2s ease-in-out infinite; }
+  @keyframes bob{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(6px);} }
+
+  /* reveal-on-load / reveal-on-scroll */
+  [data-reveal]{
+    opacity:1; transform:none;
+  }
+  [data-reveal] .line{
+    display:block; overflow:hidden;
+  }
+  [data-reveal] .line > span{
+    display:inline-block; transform:translateY(110%); filter:blur(6px); opacity:0;
+    transition:transform .7s cubic-bezier(.2,.7,.2,1), filter .7s ease, opacity .6s ease;
+    transition-delay:calc(var(--i, 0) * 70ms);
+  }
+  [data-reveal].is-in .line > span{ transform:translateY(0); filter:blur(0); opacity:1; }
+  [data-reveal].fade{ opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease; }
+  [data-reveal].fade.is-in{ opacity:1; transform:none; }
+
+  /* ---------- section marker ---------- */
+  .marker{ display:flex; align-items:center; gap:10px; margin-bottom:20px; }
+  .marker .sq{ width:9px; height:9px; background:var(--accent); flex:none; }
+  .marker span{ font-family:var(--font-mono); font-size:13px; letter-spacing:.03em; color:var(--ink-soft); }
+  .rule{ height:1px; background:var(--line); border:none; margin:0 0 44px; }
+
+  section{ padding:88px 0; }
+  .statement{
+    font-size:clamp(1.6rem, 3.4vw, 2.6rem); font-weight:600; line-height:1.18; letter-spacing:-.01em;
+    max-width:26ch; margin-bottom:22px;
+  }
+  .statement + p{ max-width:62ch; color:var(--ink-soft); font-size:17px; line-height:1.6; }
+
+  /* ---------- marquee ---------- */
+  .marquee-wrap{ margin:0 -20px; border-top:1px solid var(--line); border-bottom:1px solid var(--line); overflow:hidden; }
+  .marquee{ display:flex; width:max-content; animation:scroll 26s linear infinite; }
+  .marquee span{ font-family:var(--font-display); font-weight:700; font-size:clamp(1.4rem,4vw,2.4rem); letter-spacing:-.01em; padding:26px 28px; white-space:nowrap; color:var(--ink-soft); }
+  .marquee span i{ color:var(--accent); font-style:normal; margin-left:28px; }
+  @keyframes scroll{ from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
+
+  /* ---------- process ---------- */
+  .grid3{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  .proc-card{
+    background:var(--card); border-radius:18px; padding:28px; min-height:220px;
+    display:flex; flex-direction:column; justify-content:space-between; gap:20px;
+    background-image:repeating-linear-gradient(135deg, transparent 0 10px, color-mix(in srgb, var(--ink) 4%, transparent) 10px 11px);
+  }
+  .proc-num{ font-family:var(--font-mono); font-size:15px; color:var(--ink-soft); }
+  .proc-title{ font-size:20px; font-weight:700; margin-bottom:8px; }
+  .proc-body{ color:var(--ink-soft); font-size:15px; line-height:1.55; }
+
+  .budget{ margin-top:56px; display:flex; flex-direction:column; gap:0; }
+  .budget-row{ display:flex; align-items:center; gap:18px; padding:16px 0; border-bottom:1px solid var(--line); }
+  .budget-row:first-child{ border-top:1px solid var(--line); }
+  .budget-label{ width:110px; flex:none; font-weight:600; }
+  .budget-track{ flex:1; height:6px; background:var(--line); border-radius:99px; overflow:hidden; }
+  .budget-fill{ height:100%; background:var(--accent); width:0; border-radius:99px; transition:width 1s cubic-bezier(.2,.7,.2,1); }
+  .budget-val{ width:52px; text-align:right; font-family:var(--font-mono); font-variant-numeric:tabular-nums; color:var(--ink-soft); font-size:14px;}
+
+  /* ---------- work cards ---------- */
+  .work-list{ display:flex; flex-direction:column; gap:64px; }
+  .work-card{ cursor:pointer; border:none; background:none; padding:0; text-align:left; width:100%; font-family:var(--font-body); color:inherit; }
+  .work-photo{
+    position:relative; border-radius:20px; overflow:hidden; aspect-ratio:16/9; margin-bottom:18px;
+    transition:transform .5s cubic-bezier(.2,.7,.2,1);
+  }
+  .work-card:hover .work-photo{ transform:translateY(-4px); }
+  .work-photo.p1{ background:radial-gradient(120% 140% at 20% 20%, #ffb199, transparent 55%), radial-gradient(90% 120% at 85% 80%, #ff6a3d, transparent 60%), linear-gradient(160deg,#2a1712,#120b08); }
+  .work-photo.p2{ background:radial-gradient(120% 140% at 80% 15%, #ffd9a8, transparent 55%), radial-gradient(100% 120% at 15% 85%, #ff8a5c, transparent 60%), linear-gradient(160deg,#1a1512,#0a0908); }
+  .work-meta{ display:flex; align-items:flex-end; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+  .work-title{ font-size:clamp(1.6rem,3vw,2.2rem); font-weight:700; letter-spacing:-.01em; }
+  .work-year{ color:var(--ink-soft); font-family:var(--font-mono); font-size:14px; }
+  .tags{ display:flex; gap:8px; }
+  .tag{ padding:7px 14px; border-radius:999px; background:var(--card); font-size:13px; font-weight:600; color:var(--ink-soft); }
+
+  /* ---------- case-study overlay ---------- */
+  #case-view{
+    position:fixed; inset:0; z-index:100; background:var(--paper); overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+  #case-view[hidden]{ display:none; }
+  .case-hero{
+    position:relative; min-height:70vh; display:flex; flex-direction:column; justify-content:flex-end;
+    padding:88px 20px 48px; color:#fdfaf7; overflow:hidden;
+  }
+  .case-watermark{
+    position:absolute; left:20px; bottom:14px; font-family:var(--font-display); font-weight:800;
+    font-size:min(34vw, 300px); line-height:1; color:rgba(255,255,255,.08); z-index:0; user-select:none;
+    transition:opacity .5s ease; pointer-events:none;
+  }
+  .case-topbar{ position:relative; z-index:2; display:flex; justify-content:space-between; align-items:center; margin-bottom:auto; }
+  .back-btn{ display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,.12); backdrop-filter:blur(6px); border:none; color:#fff; padding:9px 16px 9px 12px; border-radius:999px; font-weight:600; cursor:pointer; font-family:var(--font-body); font-size:14px; }
+  .case-dots{ display:flex; gap:7px; }
+  .case-dots i{ width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,.3); transition:background .3s ease, transform .3s ease; }
+  .case-dots i.on{ background:var(--accent); transform:scale(1.3); }
+  .case-badge{ position:relative; z-index:2; display:inline-flex; align-items:center; gap:8px; font-family:var(--font-mono); font-size:13px; background:rgba(255,255,255,.1); padding:6px 12px; border-radius:999px; width:fit-content; margin-bottom:20px; }
+  .case-title{ position:relative; z-index:2; font-size:clamp(2.4rem,8vw,5.5rem); font-weight:700; letter-spacing:-.02em; line-height:.94; margin-bottom:16px; }
+  .case-sub{ position:relative; z-index:2; max-width:52ch; color:#e9e4dd; font-size:17px; }
+  .case-body{ max-width:1180px; margin:0 auto; padding:64px 20px 100px; display:flex; flex-direction:column; gap:64px; }
+  .case-statement{ font-size:clamp(1.4rem,2.8vw,2rem); font-weight:600; line-height:1.3; max-width:34ch; }
+  .case-block p{ color:var(--ink-soft); font-size:16px; line-height:1.65; max-width:70ch; }
+  .case-block .marker span{ color:var(--accent); }
+
+  /* ---------- footer ---------- */
+  .contact-head{ font-size:clamp(2.4rem,7vw,4.6rem); font-weight:700; letter-spacing:-.02em; margin-bottom:14px; }
+  .contact-email{ font-size:clamp(1.4rem,4vw,2.2rem); font-weight:700; text-decoration:underline; text-underline-offset:6px; text-decoration-color:var(--accent); }
+  .contact-note{ color:var(--ink-soft); max-width:44ch; margin:18px 0 30px; }
+
+  .index-nav{ margin-top:70px; border-top:1px solid var(--line); }
+  .index-row{ display:flex; align-items:center; justify-content:space-between; padding:20px 0; border-bottom:1px solid var(--line); cursor:pointer; background:none; border-left:none; border-right:none; width:100%; text-align:left; font-family:var(--font-body); color:inherit; }
+  .index-row .num{ font-family:var(--font-mono); font-size:13px; color:var(--ink-soft); margin-right:14px; }
+  .index-row .name{ font-size:22px; font-weight:600; }
+  .index-row .arrow{ transition:transform .3s ease; }
+  .index-row:hover .arrow{ transform:translateX(8px); color:var(--accent); }
+  .legal{ display:flex; justify-content:space-between; padding:26px 0 60px; color:var(--ink-soft); font-size:13px; flex-wrap:wrap; gap:8px; }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:760px){
+    .grid3{ grid-template-columns:1fr; }
+    .work-meta{ align-items:flex-start; flex-direction:column; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; }
+    [data-reveal] .line > span{ transform:none; filter:none; opacity:1; }
+    [data-reveal].fade{ opacity:1; transform:none; }
+  }
+</style>
+
+<nav class="nav on-dark" id="nav">
+  <div class="logo"><span class="mark">*</span>ASTERISK</div>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">+</button>
+</nav>
+<div class="nav-bar">
+  <div class="nav-bar-inner wrap">
+    <span class="crumb">Home <sup>01</sup></span>
+    <a class="pill" href="#contact"><span class="dot">→</span>Say hello</a>
+  </div>
+</div>
+
+<header class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-tag">Kit v1 · 2026</div>
+  <h1 data-reveal>
+    <span class="line"><span style="--i:0">Systems In</span></span>
+    <span class="line"><span style="--i:1">Motion<span class="accent">*</span></span></span>
+  </h1>
+  <p class="hero-sub fade" data-reveal>A portfolio style-system built from one accent, one display face, and three deliberate moves — reveal, shift, transition.</p>
+  <div class="hero-cta">
+    <a class="btn" href="#work"><span class="dot">↓</span>See it work</a>
+    <a class="link-ghost" href="#system">How it's built</a>
+  </div>
+  <div class="chevron">↓</div>
+</header>
+
+<main class="wrap">
+
+  <section id="system">
+    <div class="marker"><span class="sq"></span><span>The Idea</span></div>
+    <hr class="rule">
+    <div class="fade" data-reveal>
+      <h2 class="statement">Most portfolios animate everything and say nothing.</h2>
+      <p>This one picks a single accent, a single typeface family, and three repeatable moves — instead of a different effect on every scroll. Restraint is the design decision, not the absence of one.</p>
+    </div>
+  </section>
+
+  <div class="marquee-wrap">
+    <div class="marquee">
+      <span>INTERACTION DESIGN<i>*</i>DESIGN SYSTEMS<i>*</i>MOTION<i>*</i>AI‑ASSISTED WORKFLOWS<i>*</i>DELIVERY<i>*</i>STRATEGY<i>*</i></span>
+      <span>INTERACTION DESIGN<i>*</i>DESIGN SYSTEMS<i>*</i>MOTION<i>*</i>AI‑ASSISTED WORKFLOWS<i>*</i>DELIVERY<i>*</i>STRATEGY<i>*</i></span>
+    </div>
+  </div>
+
+  <section>
+    <div class="marker"><span class="sq"></span><span>How It Moves</span></div>
+    <hr class="rule">
+    <div class="grid3">
+      <div class="proc-card fade" data-reveal>
+        <div class="proc-num">01</div>
+        <div>
+          <div class="proc-title">Reveal</div>
+          <div class="proc-body">Headlines mask in line by line on load and on scroll — a short blur-and-lift, staggered by ~70ms — so text never just appears.</div>
+        </div>
+      </div>
+      <div class="proc-card fade" data-reveal>
+        <div class="proc-num">02</div>
+        <div>
+          <div class="proc-title">Shift</div>
+          <div class="proc-body">The nav isn't sticky chrome — it's a state machine. It swaps for one clear action instead of chasing the scroll position.</div>
+        </div>
+      </div>
+      <div class="proc-card fade" data-reveal>
+        <div class="proc-num">03</div>
+        <div>
+          <div class="proc-title">Transition</div>
+          <div class="proc-body">Every view shares one hero template, so switching pages reads as continuous — without a heavyweight route-transition animation.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="budget fade" data-reveal>
+      <div class="budget-row">
+        <div class="budget-label">Load</div>
+        <div class="budget-track"><div class="budget-fill" data-fill="100"></div></div>
+        <div class="budget-val">100%</div>
+      </div>
+      <div class="budget-row">
+        <div class="budget-label">Scroll</div>
+        <div class="budget-track"><div class="budget-fill" data-fill="45"></div></div>
+        <div class="budget-val">45%</div>
+      </div>
+      <div class="budget-row">
+        <div class="budget-label">Hover</div>
+        <div class="budget-track"><div class="budget-fill" data-fill="20"></div></div>
+        <div class="budget-val">20%</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="marker"><span class="sq"></span><span>Featured Work</span></div>
+    <hr class="rule">
+    <div class="work-list">
+      <button class="work-card fade" data-reveal onclick="openCase('northwind')">
+        <div class="work-photo p1"></div>
+        <div class="work-meta">
+          <div>
+            <div class="work-title">Northwind</div>
+            <div class="work-year">2026</div>
+          </div>
+          <div class="tags"><span class="tag">Product</span><span class="tag">Design System</span></div>
+        </div>
+      </button>
+      <button class="work-card fade" data-reveal onclick="openCase('alder')">
+        <div class="work-photo p2"></div>
+        <div class="work-meta">
+          <div>
+            <div class="work-title">Alder</div>
+            <div class="work-year">2025</div>
+          </div>
+          <div class="tags"><span class="tag">Editorial</span><span class="tag">Motion</span></div>
+        </div>
+      </button>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="marker"><span class="sq"></span><span>Say Hello</span></div>
+    <hr class="rule">
+    <h2 class="contact-head fade" data-reveal>Stay connected<span style="color:var(--accent)">*</span></h2>
+    <a class="contact-email" href="mailto:hello@yourname.studio">hello@yourname.studio</a>
+    <p class="contact-note">Swap the copy, the accent, and the two example projects above — the reveal, shift and transition logic underneath stays the same.</p>
+
+    <nav class="index-nav">
+      <button class="index-row" onclick="scrollToId('home')"><span><span class="num">01/</span><span class="name">Home</span></span><span class="arrow">→</span></button>
+      <button class="index-row" onclick="scrollToId('system')"><span><span class="num">02/</span><span class="name">System</span></span><span class="arrow">→</span></button>
+      <button class="index-row" onclick="scrollToId('work')"><span><span class="num">03/</span><span class="name">Work</span></span><span class="arrow">→</span></button>
+      <button class="index-row" onclick="scrollToId('contact')"><span><span class="num">04/</span><span class="name">Contact</span></span><span class="arrow">→</span></button>
+    </nav>
+    <div class="legal">
+      <span>Asterisk Portfolio Kit — reference build, 2026.</span>
+      <span>© Nathan Walsh</span>
+    </div>
+  </section>
+</main>
+
+<!-- ---------- simulated case-study / page transition ---------- -->
+<div id="case-view" hidden>
+  <div class="case-hero" id="caseHero">
+    <div class="hero-bg" id="caseBg"></div>
+    <div class="case-watermark" id="caseLetter">N</div>
+    <div class="case-topbar wrap">
+      <button class="back-btn" onclick="closeCase()">← Back to Work</button>
+      <div class="case-dots" id="caseDots"><i></i><i></i><i></i><i></i></div>
+    </div>
+    <div class="case-badge" id="caseDate">📅 2026</div>
+    <h2 class="case-title" data-reveal id="caseTitle">
+      <span class="line"><span style="--i:0">Northwind</span></span>
+    </h2>
+    <p class="case-sub" id="caseSub">A dark, systemized product interface — built to show restraint at scale rather than to impress on the first scroll.</p>
+  </div>
+  <div class="case-body" id="caseScroll">
+    <div class="case-block fade" data-reveal>
+      <div class="marker"><span class="sq"></span><span>Problem</span></div>
+      <p class="case-statement">Teams kept shipping one-off flourishes because there was no shared vocabulary for motion.</p>
+      <p>Every new feature invented its own transition, its own easing, its own idea of "polished." Nothing matched, and nothing was reusable.</p>
+    </div>
+    <div class="case-block fade" data-reveal>
+      <div class="marker"><span class="sq"></span><span>Solution</span></div>
+      <p class="case-statement">Three moves, documented once, reused everywhere.</p>
+      <p>Reveal on arrival, shift on state change, transition through one shared template — codified as tokens and components so any designer on the team could apply them without reinventing the system.</p>
+    </div>
+    <div class="case-block fade" data-reveal>
+      <div class="marker"><span class="sq"></span><span>Result</span></div>
+      <p class="case-statement">A product that feels considered, page to page, without a heavier build.</p>
+      <p>This panel is the demo: it's the same hero template as the homepage, the same reveal timing, and the same accent — just re-pointed at different content.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  // reveal on scroll / load
+  const revealEls = document.querySelectorAll('[data-reveal]');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('is-in'); io.unobserve(e.target); } });
+  }, { threshold:.2 });
+  revealEls.forEach(el=> io.observe(el));
+  // hero reveals immediately on load
+  requestAnimationFrame(()=> document.querySelectorAll('.hero [data-reveal]').forEach(el=> el.classList.add('is-in')));
+
+  // budget bars fill in when visible
+  const bars = document.querySelectorAll('.budget-fill');
+  const barIo = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.style.width = e.target.dataset.fill + '%';
+        barIo.unobserve(e.target);
+      }
+    });
+  }, { threshold:.4 });
+  bars.forEach(b=> barIo.observe(b));
+
+  // nav solid-on-scroll + on-dark while over hero
+  const nav = document.getElementById('nav');
+  const hero = document.getElementById('home');
+  const navIo = new IntersectionObserver(([entry])=>{
+    nav.classList.toggle('on-dark', entry.isIntersecting);
+    nav.classList.toggle('solid', !entry.isIntersecting);
+  }, { rootMargin:'-72px 0px 0px 0px', threshold:0 });
+  navIo.observe(hero);
+
+  // "+" toggle -> accent takeover bar
+  const navToggle = document.getElementById('navToggle');
+  navToggle.addEventListener('click', ()=>{
+    const open = document.body.classList.toggle('nav-open');
+    navToggle.setAttribute('aria-expanded', open);
+    navToggle.textContent = open ? '×' : '+';
+  });
+
+  function scrollToId(id){
+    document.body.classList.remove('nav-open');
+    navToggle.textContent = '+';
+    document.getElementById(id)?.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+  }
+
+  // ---- simulated case-study transition ----
+  const projects = {
+    northwind: {
+      letter:'N', title:'Northwind', date:'📅 2026',
+      sub:'A dark, systemized product interface — built to show restraint at scale rather than to impress on the first scroll.'
+    },
+    alder: {
+      letter:'A', title:'Alder', date:'📅 2025',
+      sub:'An editorial reading experience where the only animated element is the one the reader is about to act on.'
+    }
+  };
+
+  const caseView = document.getElementById('case-view');
+  const caseScroll = document.getElementById('caseScroll');
+  let lastFocused = null;
+
+  function openCase(key){
+    const p = projects[key];
+    if(!p) return;
+    lastFocused = document.activeElement;
+
+    document.getElementById('caseLetter').textContent = p.letter;
+    document.getElementById('caseDate').textContent = p.date;
+    document.getElementById('caseSub').textContent = p.sub;
+    const titleEl = document.getElementById('caseTitle');
+    titleEl.innerHTML = `<span class="line"><span style="--i:0">${p.title}</span></span>`;
+    titleEl.classList.remove('is-in');
+
+    caseView.hidden = false;
+    document.body.style.overflow = 'hidden';
+    caseScroll.scrollTop = 0;
+
+    // letter watermark flashes in, then the full title reveals — mirrors the captured transition
+    const letterEl = document.getElementById('caseLetter');
+    letterEl.style.opacity = '1';
+    requestAnimationFrame(()=>{
+      titleEl.classList.add('is-in');
+      setTimeout(()=>{ letterEl.style.opacity = '.6'; }, 550);
+    });
+
+    document.querySelectorAll('#case-view [data-reveal]').forEach(el=> el.classList.remove('is-in'));
+    const caseIo = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('is-in'); caseIo.unobserve(e.target); } });
+    }, { root:caseView, threshold:.2 });
+    document.querySelectorAll('#case-view [data-reveal]').forEach(el=> caseIo.observe(el));
+
+    updateDots();
+    caseScroll.addEventListener('scroll', updateDots);
+  }
+
+  function closeCase(){
+    caseView.hidden = true;
+    document.body.style.overflow = '';
+    caseScroll.removeEventListener('scroll', updateDots);
+    lastFocused?.focus();
+  }
+
+  function updateDots(){
+    const blocks = document.querySelectorAll('.case-block');
+    const dots = document.querySelectorAll('#caseDots i');
+    const scrollPos = caseScroll.scrollTop + 200;
+    let active = 0;
+    blocks.forEach((b, i)=>{ if(b.offsetTop <= scrollPos) active = i; });
+    dots.forEach((d,i)=> d.classList.toggle('on', i <= active));
+  }
+
+  document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && !caseView.hidden) closeCase(); });
+</script>
+
+</body></html>

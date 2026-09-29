@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Column Wipe Loader</title>
+<!--
+  Column-wipe page loader — technique study (timings measured from ampli.net's Webflow IX3 config).
+  Swap the tokens + wordmark for your own brand. Requires GSAP 3 (free, incl. commercial use).
+
+  TIMELINE (seconds, all ease expo.out unless noted)
+  0.00  Dark 8-column curtain covers viewport (1px hairlines between columns)
+  0.12  Wordmark pieces rise y 100%→0 inside a mask · 2.0s · stagger 0.10
+  1.75  Light columns grow down from top, height 0→120% · 1.25s · stagger 0.10 L→R
+  2.52  Wordmark removed (already covered)
+  3.00  Nav drops in y -130px→0 · 2.0s · expo.inOut
+  3.04  Dark curtain removed (light columns now fully cover)
+  3.08  Light columns slide down off-screen yPercent 0→120 · 1.93s · stagger 0.10 L→R
+  3.64  Hero headline words rise from masks y 100%→0 · 2.0s · stagger 0.05
+  4.74  Secondary content fades in · 0.3s · sine.out
+  5.17  Loader removed from DOM flow
+-->
+<style>
+  :root{
+    --curtain: #1c2230;      /* first layer (original: #182a2e) */
+    --wipe:    #e7dccb;      /* second layer (original: #cee0ca) */
+    --page:    #f6f6f6;      /* page bg revealed underneath */
+    --ink:     #14161a;
+    --hairline: rgba(0,0,0,.12);
+    --logo:    #e7dccb;
+    --cols: 8;
+  }
+  *{box-sizing:border-box;margin:0}
+  body{background:var(--page);color:var(--ink);font-family:Inter,system-ui,-apple-system,sans-serif}
+
+  /* ---------- Loader ---------- */
+  .loader{position:fixed;inset:0;z-index:300;overflow:hidden;display:flex;align-items:center;justify-content:center}
+  .cols{position:absolute;inset:0;display:flex;align-items:flex-start}
+  .cols > i{flex:0 0 calc(100% / var(--cols));height:100%;border-right:1px solid var(--hairline)}
+  .cols--curtain > i{background:var(--curtain)}
+  .cols--wipe{z-index:2}
+  .cols--wipe > i{background:var(--wipe);height:0%}
+
+  .logo{position:relative;z-index:1;display:flex;gap:.3em;overflow:hidden;       /* the mask */
+        font:600 clamp(28px,4vw,44px)/1 Inter,system-ui,sans-serif;color:var(--logo);letter-spacing:-.02em}
+  .logo span{display:block;transform:translateY(100%)}
+
+  /* ---------- Demo page ---------- */
+  .nav{display:flex;justify-content:space-between;padding:24px 32px;font-weight:600}
+  .hero{padding:18vh 32px 0;max-width:1100px}
+  .hero h1{font-size:clamp(40px,7vw,96px);line-height:1.02;letter-spacing:-.03em;font-weight:600}
+  .word{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.06em}
+  .word > span{display:inline-block;transform:translateY(100%)}
+  .sub{margin-top:28px;font-size:20px;max-width:560px;opacity:0}
+  .replay{position:fixed;right:16px;bottom:16px;z-index:400;padding:8px 14px;border:1px solid var(--ink);background:none;cursor:pointer;font:inherit}
+
+  @media (prefers-reduced-motion: reduce){
+    .loader{display:none}
+    .logo span,.word > span{transform:none}
+    .sub{opacity:1}
+  }
+</style>
+</head>
+<body>
+
+<div class="loader" aria-hidden="true">
+  <div class="cols cols--curtain"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="logo"><span>Nate</span><span>Walsh</span></div>
+  <div class="cols cols--wipe"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+</div>
+
+<nav class="nav"><span>Nate Walsh</span><span>Work · About · Contact</span></nav>
+<main class="hero">
+  <h1 data-split>Designing systems that scale with people.</h1>
+  <p class="sub">Experience design, UI strategy and design systems for complex platforms.</p>
+</main>
+<button class="replay" type="button">Replay</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+  // Split headline into masked words (lightweight stand-in for GSAP SplitText with mask:"words")
+  document.querySelectorAll('[data-split]').forEach(el=>{
+    el.innerHTML = el.textContent.trim().split(/\s+/)
+      .map(w=>`<span class="word"><span>${w}</span></span>`).join(' ');
+  });
+
+  function playLoader(){
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return;
+
+    gsap.set('.loader', {display:'flex'});
+    gsap.set('.cols--curtain', {display:'flex'});
+    gsap.set('.logo', {display:'flex'});
+    gsap.set('.logo span', {y:0, yPercent:100});
+    gsap.set('.cols--wipe > i', {height:'0%', yPercent:0});
+    gsap.set('.word > span', {y:0, yPercent:100});
+    gsap.set('.sub', {opacity:0});
+
+    return gsap.timeline({defaults:{ease:'expo.out'}})
+      .to('.logo span',       {yPercent:0,  duration:2,    stagger:.1}, 0.12)
+      .to('.cols--wipe > i',  {height:'120%', duration:1.25, stagger:.1}, 1.75)
+      .set('.logo',           {display:'none'}, 2.52)
+      .from('.nav',           {y:-130, duration:2, ease:'expo.inOut'}, 3.0)
+      .set('.cols--curtain',  {display:'none'}, 3.04)
+      .to('.cols--wipe > i',  {yPercent:120, duration:1.93, stagger:.1}, 3.08)
+      .to('.word > span',     {yPercent:0,  duration:2,    stagger:.05}, 3.64)
+      .to('.sub',             {opacity:1,   duration:.3,   ease:'sine.out'}, 4.74)
+      .set('.loader',         {display:'none'}, 5.17);
+  }
+
+  // Wait for fonts so the wordmark/headline don't reflow mid-animation
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(playLoader);
+  document.querySelector('.replay').addEventListener('click', playLoader);
+</script>
+</body>
+</html>

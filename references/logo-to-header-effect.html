@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Logo-to-Header Effect</title>
+<style>
+  /* ---------- Tokens (tune these) ---------- */
+  :root{
+    --brand:#EE5323;
+    --header-h:70px;          /* header bar height */
+    --logo-small-w:124px;     /* logo width once docked in header */
+    --logo-small-top:19px;    /* distance from top when docked */
+    --gutter:16px;            /* side gutter for the big state */
+    --hero-logo-y:48vh;       /* where the big logo's TOP sits in the hero */
+    --dur:.8s;
+    --ease:cubic-bezier(.65,0,.35,1);   /* strong ease-in-out, close to Framer's feel */
+  }
+  *{box-sizing:border-box;margin:0}
+  body{font-family:Inter,system-ui,sans-serif;background:#0d0d0d;color:#fff}
+
+  /* ---------- Fixed header chrome ---------- */
+  .header{position:fixed;inset:0 0 auto 0;height:var(--header-h);display:flex;
+    align-items:center;justify-content:space-between;padding:0 32px;z-index:10;pointer-events:none}
+  .header a,.header button{pointer-events:auto;color:var(--brand);text-decoration:none;
+    font-size:14px;background:none;border:0;cursor:pointer}
+  .header nav{display:flex;gap:24px}
+
+  /* ---------- The logo ----------
+     It's ALWAYS position:fixed and ALWAYS laid out at its small (header) size.
+     The big hero state is just a transform: translate + scale up.
+     Animating only transform keeps it on the GPU = smooth, no layout thrash. */
+  .logo{
+    position:fixed;z-index:11;left:50%;top:var(--logo-small-top);
+    width:var(--logo-small-w);
+    transform-origin:50% 0;
+    transform:translateX(-50%) translateY(var(--ty,0px)) scale(var(--s,1));
+    transition:transform var(--dur) var(--ease);
+    will-change:transform;
+  }
+  .logo svg{display:block;width:100%;height:auto}
+  .logo text{fill:var(--brand)}
+
+  /* Hero state: JS supplies --s-hero and --ty-hero based on viewport */
+  html:not(.is-scrolled) .logo{--s:var(--s-hero);--ty:var(--ty-hero)}
+
+  @media (prefers-reduced-motion:reduce){ .logo{transition:none} }
+
+  /* ---------- Demo page content ---------- */
+  .hero{height:100vh;background:linear-gradient(160deg,#3a8fd0,#1f5e96)}
+  .section{min-height:100vh;display:grid;place-items:center;font-size:clamp(28px,5vw,64px);
+    font-weight:800;text-align:center;padding:40px}
+  .section:nth-child(odd){background:#161616}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <nav><a href="#">WA</a><a href="#">X</a><a href="#">IG</a><a href="#">LI</a><a href="#">EMAIL</a></nav>
+  <button aria-label="Menu">☰</button>
+</header>
+
+<!-- Replace this SVG with your own wordmark. Keep a viewBox so it scales crisply. -->
+<a class="logo" href="#" aria-label="Home">
+  <svg viewBox="0 0 400 104" aria-hidden="true">
+    <text x="0" y="82" font-size="100" font-weight="800" font-family="Inter,Helvetica,Arial,sans-serif" letter-spacing="-5">Studio</text>
+  </svg>
+</a>
+
+<main>
+  <section class="hero"></section>
+  <section class="section">Design that captivates today.</section>
+  <section class="section">Keep scrolling — then scroll back to the top.</section>
+</main>
+
+<script>
+(() => {
+  const root = document.documentElement;
+  const logo = document.querySelector('.logo');
+  const THRESHOLD = 10; // px scrolled before the logo docks
+
+  // Size the "hero" state from the viewport: logo spans full width minus gutters.
+  function measure(){
+    const cs = getComputedStyle(root);
+    const smallW = parseFloat(cs.getPropertyValue('--logo-small-w'));
+    const gutter = parseFloat(cs.getPropertyValue('--gutter'));
+    const top    = parseFloat(cs.getPropertyValue('--logo-small-top'));
+    const heroY  = innerHeight * 0.48; // matches --hero-logo-y
+    const s = (innerWidth - gutter * 2) / smallW;
+    root.style.setProperty('--s-hero', s);
+    root.style.setProperty('--ty-hero', (heroY - top) + 'px');
+  }
+
+  // Binary trigger (what the Arpeggio site does): leave the top -> dock; return -> expand.
+  function update(){ root.classList.toggle('is-scrolled', scrollY > THRESHOLD); }
+
+  // Avoid animating on first paint if the page loads mid-scroll.
+  logo.style.transition = 'none';
+  measure(); update();
+  requestAnimationFrame(() => requestAnimationFrame(() => logo.style.transition = ''));
+
+  addEventListener('scroll', update, { passive:true });
+  addEventListener('resize', measure);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+  Palette direction per INSTRUCTIONS.md §5 (informed by zoox.com + excape.cafe):
+  near-black + off-white, one restrained accent. Light-first, with a
+  near-black hero band on Home. Swap --accent once a final color is picked.
+*/
+:root {
+  --radius: 0.5rem;
+
+  --background: oklch(0.98 0.003 90);       /* off-white, ~#F6F5F2 */
+  --foreground: oklch(0.16 0.006 285);      /* near-black, ~#111214 */
+
+  --card: oklch(0.98 0.003 90);
+  --card-foreground: oklch(0.16 0.006 285);
+  --popover: oklch(0.98 0.003 90);
+  --popover-foreground: oklch(0.16 0.006 285);
+
+  --primary: oklch(0.16 0.006 285);
+  --primary-foreground: oklch(0.98 0.003 90);
+
+  --secondary: oklch(0.94 0.004 90);
+  --secondary-foreground: oklch(0.16 0.006 285);
+
+  --muted: oklch(0.94 0.004 90);
+  --muted-foreground: oklch(0.45 0.006 285);
+
+  --accent: oklch(0.55 0.09 190);           /* desaturated teal placeholder */
+  --accent-foreground: oklch(0.98 0.003 90);
+
+  --destructive: oklch(0.55 0.2 25);
+  --border: oklch(0.89 0.004 90);
+  --input: oklch(0.89 0.004 90);
+  --ring: oklch(0.55 0.09 190);
+}
+
+.dark {
+  --background: oklch(0.16 0.006 285);
+  --foreground: oklch(0.98 0.003 90);
+
+  --card: oklch(0.19 0.006 285);
+  --card-foreground: oklch(0.98 0.003 90);
+  --popover: oklch(0.19 0.006 285);
+  --popover-foreground: oklch(0.98 0.003 90);
+
+  --primary: oklch(0.98 0.003 90);
+  --primary-foreground: oklch(0.16 0.006 285);
+
+  --secondary: oklch(0.24 0.006 285);
+  --secondary-foreground: oklch(0.98 0.003 90);
+
+  --muted: oklch(0.24 0.006 285);
+  --muted-foreground: oklch(0.65 0.006 285);
+
+  --accent: oklch(0.65 0.09 190);
+  --accent-foreground: oklch(0.16 0.006 285);
+
+  --destructive: oklch(0.65 0.2 25);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.65 0.09 190);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+}
+
+@layer components {
+  /* Rolling-text hover: the duplicated label slides up into place. */
+  .roll {
+    display: inline-block;
+    overflow: hidden;
+    height: 1em;
+    line-height: 1;
+  }
+  .roll > span {
+    display: block;
+    transition: transform 0.45s cubic-bezier(0.7, 0, 0.2, 1);
+  }
+  .roll:hover > span {
+    transform: translateY(-100%);
+  }
+
+  .rules-x {
+    background: repeating-linear-gradient(
+      to right,
+      transparent 0 10px,
+      color-mix(in oklch, var(--foreground) 45%, transparent) 10px 11px
+    );
+  }
+
+  /* Endless keyword band — two identical copies slide -50% for a seamless loop. */
+  .marquee {
+    animation: marquee-scroll 26s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .roll > span {
+      transition: none;
+    }
+    .marquee {
+      animation: none;
+    }
+  }
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+html {
+  overflow-x: clip;
+}

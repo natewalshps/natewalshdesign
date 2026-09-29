@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nate Walsh — Experience Design & Strategy</title>
+<meta name="description" content="Nate Walsh is an Associate Creative Director working at the intersection of experience design, design systems and applied AI.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ============ LOADER (column wipe) ============ -->
+<div class="loader" aria-hidden="true">
+  <div class="cols cols--curtain"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="logo"><span>Nate</span><span>Walsh</span></div>
+  <div class="cols cols--wipe"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+</div>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <a class="nav__brand" href="#top">Nate Walsh</a>
+  <nav class="nav__links">
+    <a href="#work">Work</a>
+    <a href="#approach">Approach</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <section class="section hero">
+    <div class="bg" data-parallax="0.15"><!-- swap: --bg-hero in styles.css, or drop an <img>/<video> in here --></div>
+    <div class="grid-lines"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="inner">
+      <span class="eyebrow" data-hero-fade>Associate Creative Director · Minneapolis</span>
+      <h1 data-split>Designing systems that scale with people.</h1>
+      <div class="hero__foot" data-hero-fade>
+        <p class="hero__sub">I lead experience design, UI strategy and design systems for complex healthcare and enterprise platforms — and put AI to work where it removes real friction.</p>
+        <a class="btn" href="#work">Selected work ↓</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MARQUEE ============ -->
+  <div class="marquee" aria-label="Focus areas">
+    <div class="marquee__track">
+      <span>Experience strategy</span><span>Design systems</span><span>Interaction design</span><span>AI assistants</span><span>Enterprise platforms</span><span>Healthcare UX</span><span>Team enablement</span>
+    </div>
+  </div>
+
+  <!-- ============ STATEMENT ============ -->
+  <section class="section statement">
+    <div class="grid-lines"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="inner">
+      <span class="eyebrow" data-reveal>About</span>
+      <p data-scrub-words style="margin-top:32px">
+        I work as a player-coach — hands-on in the craft, accountable for the strategy, and focused on connecting every design decision to business goals, technical constraints and delivery reality.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ WORK (dark) ============ -->
+  <section class="section work dark" id="work">
+    <div class="bg" data-parallax="0.2"></div>
+    <div class="grid-lines"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="inner">
+      <div class="work__head">
+        <div>
+          <span class="eyebrow" data-reveal>Selected work</span>
+          <h2 data-split style="margin-top:24px">Complex platforms, made clear.</h2>
+        </div>
+        <a class="btn btn--light" href="#contact" data-reveal>Request case studies</a>
+      </div>
+
+      <div class="cards">
+        <article class="card" data-reveal>
+          <span class="card__num">01 — Modernization</span>
+          <div>
+            <h3>Benefits platform modernization</h3>
+            <p>Re-architecting a legacy pharmacy-benefits client portal into a modern, task-focused experience.</p>
+            <div class="card__tags"><span>UX strategy</span><span>UI</span><span>Research</span></div>
+          </div>
+        </article>
+        <article class="card" data-reveal>
+          <span class="card__num">02 — Design systems</span>
+          <div>
+            <h3>Design system at enterprise scale</h3>
+            <p>Token architecture, component governance and audits that keep dozens of product teams consistent.</p>
+            <div class="card__tags"><span>Tokens</span><span>Figma</span><span>Governance</span></div>
+          </div>
+        </article>
+        <article class="card" data-reveal>
+          <span class="card__num">03 — Applied AI</span>
+          <div>
+            <h3>Conversational AI assistant</h3>
+            <p>Experience strategy for an agentic assistant serving client-facing audiences in a regulated space.</p>
+            <div class="card__tags"><span>AI / agents</span><span>Service design</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ APPROACH ============ -->
+  <section class="section approach" id="approach">
+    <div class="grid-lines"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="inner">
+      <span class="eyebrow" data-reveal>Approach</span>
+      <h2 data-split>Structure first. Then speed.</h2>
+      <div class="steps">
+        <div class="step" data-reveal><span class="step__n">01</span><h3>Frame the problem</h3><p>Break complexity into frameworks the whole team can reason about.</p></div>
+        <div class="step" data-reveal><span class="step__n">02</span><h3>Systematize</h3><p>Patterns, tokens and components that stay usable and sustainable over time.</p></div>
+        <div class="step" data-reveal><span class="step__n">03</span><h3>Align</h3><p>Bridge design, product, engineering and leadership around clear trade-offs.</p></div>
+        <div class="step" data-reveal><span class="step__n">04</span><h3>Automate</h3><p>Use AI to cut friction in research, documentation and delivery — not for novelty.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section class="section contact" id="contact">
+    <div class="bg" data-parallax="0.12"></div>
+    <div class="grid-lines"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="inner">
+      <span class="eyebrow" data-reveal>Contact</span>
+      <h2 data-split>Let’s build something clear.</h2>
+      <a class="btn" href="mailto:natewalshdesign@gmail.com" data-reveal>natewalshdesign@gmail.com</a>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <span>© <span id="yr"></span> Nate Walsh</span>
+  <span>Minneapolis, MN</span>
+  <a href="#top">Back to top ↑</a>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

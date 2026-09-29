@@ -1,0 +1,152 @@
+[
+  {
+    "slug": "pbm-clickable-sales-demo",
+    "name": "PBM Clickable Sales Demo",
+    "agency": "Publicis Sapient",
+    "client": "OptumRx",
+    "roleTitle": "Associate Creative Director",
+    "timeline": "Nov–Dec 2024 · 5 weeks",
+    "team": "Design lead; cross-functional with OptumRx Sales, Capability, and Product teams",
+    "pillars": ["Experience-Led Strategy", "Legacy Modernization"],
+    "priority": "Medium",
+    "contentFlag": "Both",
+    "featured": false,
+    "status": "In progress",
+    "dek": "A clickable Figma prototype and sales narrative that gave OptumRx's PBM sales team a modern, unified story to compete against consumer-grade new entrants.",
+    "outcomeHeadline": "V1 shipped in 5 weeks, grounded in 40+ stakeholder interviews — with a governance model built in to keep it from going stale.",
+    "coverImageUrl": "",
+    "gallery": [],
+    "sections": [
+      {
+        "heading": "Executive Summary",
+        "body": "Associate Creative Director · Publicis Sapient, embedded at Optum · November–December 2024\n\nOptumRx's PBM sales team was losing deals on story, not substance. I led design and experience strategy for a clickable Figma prototype that unified OptumRx's fragmented PBM capabilities into one coherent, persona-driven sales narrative — then built the governance model to keep it alive past launch day."
+      },
+      {
+        "heading": "Context",
+        "body": "Emblem, a health plan RFP, went to Capital Rx's JUDI platform. Optum had the deeper capability. JUDI won anyway, largely on story: an easy-to-use, consumer-grade interface and a transparency narrative that positioned Capital Rx as a fiduciary to clients, versus legacy PBMs framed as fiduciaries to shareholders.\n\nThat loss exposed a real gap. OptumRx's actual product capability was strong — automated plan builds running at a 100% accuracy rate, 1.5 billion claims processed a year, 5,000+ self-service data extracts run daily. But it lived across siloed internal tools (RxCOMET, Client Central, Extracts, ODIS, RxBuilder, RxClaim), each built for operators rather than for a sales conversation. The demo assets sales was using hadn't kept pace — outdated screens, no persona logic, no connective narrative. The product was ahead of the pitch."
+      },
+      {
+        "heading": "Your Role",
+        "body": "I led the design and experience strategy for the prototype end to end, reporting directly against a five-week timeline:\n\n- Ran the market research review — mapping the Big 3 PBMs, Capital Rx/JUDI, and other new entrants against their public positioning, digital product presence, and demo videos to understand exactly what OptumRx was being compared to.\n- Facilitated sales team learning sessions to surface client priorities, recurring RFP themes, and where past pitches had lost ground.\n- Ran technical product walkthroughs across the internal tool landscape to understand current-state experience and what was already committed on the 2025 roadmap.\n- Led a design kickoff working session with product and sales stakeholders to identify \"moments that matter\" — the specific points in a health plan's journey where OptumRx needed to win the room — and map them to real technical assets.\n- Directed the ongoing prototype build in Figma, and wrote the accompanying narration script so the story stayed consistent regardless of who was presenting.\n- Authored the companion strategy report and a governance model for the prototype's ongoing use, so it would function as a living sales asset instead of a one-off deliverable.\n\nAcross five weeks: 10+ hours of stakeholder interviews, 40+ stakeholders consulted, 17 hours of core team work sessions, 10 product walkthroughs, and 70+ assets collected."
+      },
+      {
+        "heading": "Key Insights",
+        "body": "**The market had already told us what wins.** Clients wanted an easy-to-use platform requiring little training, real transparency into their plans, flexible and modular offerings, and a consumer-grade experience — not a features list. 93% of employers surveyed by the Business Group on Health were concerned or very concerned about pharmacy costs, and satisfaction with the Big 3 PBMs had hit a multi-year low on likelihood-to-recommend. Every competitor, incumbent and new entrant alike, was now selling experience, not just service.\n\n**Optum's internal view confirmed the same gaps from the inside.** Capability existed but was duplicated across products with no consistent experience layer. Demos leaned on outdated tech and green-screen interfaces that undercut a modernization pitch. And there was no single owner accountable for the end-to-end experience — a governance gap as much as a design one.\n\n**The story had to be earned, not staged.** Clients respond badly to \"vaporware.\" Every screen in the prototype needed to be traceable to either shipped functionality or a committed 2025 roadmap item — clearly labeled as such — so sales could stand behind every claim in the room."
+      },
+      {
+        "heading": "Design Decisions",
+        "body": "**Built around moments that matter, not a literal product tour.** Rather than walking through every screen of every tool, I structured the prototype as a modular narrative aligned to the four stages of a health plan's journey with OptumRx: Implementation & Onboarding, Claims Processing, Reporting & Analytics, and Member Servicing. Each stage carries its own story — automated plan build and testing, self-service data extracts, real-time claim overrides and prior authorization visibility, and an actionable reporting dashboard — so sales can adapt the demo to whichever persona or pain point is in front of them.\n\n**Wrote the narrative alongside the interface, not after it.** I produced a full narration script tied to specific interactions in the Figma flow, so the prototype's story — accuracy, speed, transparency, self-service — stayed consistent no matter which member of the sales or capability team was presenting it.\n\n**Treated governance as a design deliverable.** A sales asset that goes stale is worse than no asset at all. I defined a Demo Owner role and a dedicated design support role, a recurring update cadence tied to product releases, version control and access tiers in Figma, and a quarterly review cycle with the sales team — built to be adopted immediately, not aspirational.\n\n**Sequenced the roadmap instead of overbuilding v1.** Rather than trying to solve everything at once, I framed a three-stage capability evolution roadmap — UI improvements in Q1 2025, externalization of internal tools, then a seamless, unified PBM digital ecosystem beyond 2025 — recommending it be governed going forward by a dedicated PBM Experience Center of Excellence."
+      },
+      {
+        "heading": "Visual Evidence",
+        "body": "TK — pull key prototype screens (Your PBM Journey landing view, Implementation & Onboarding flow, Reporting Dashboard) and the capability evolution roadmap visual from the companion report for the published case study."
+      },
+      {
+        "heading": "Outcome & Impact",
+        "body": "Version 1 of the clickable prototype shipped in five weeks — an internal-facing asset built on high-priority moments that matter, explicitly out of scope for external distribution until it earned that status through use. It gave the sales and capability teams a modern, unified story to bring into the room, directly answering the competitive gap that cost Optum the Emblem RFP: an easy-to-use, transparent, consumer-grade narrative for a genuinely strong product.\n\nMore importantly, it reframed the ask. What started as \"build us a demo\" became a recommendation set the org adopted: evolve the prototype into a client-ready sales asset, invest in a differentiated client experience roadmap, stand up formal experience governance, and accelerate the AI/ML capabilities already in production across the PBM Clinical business into the client-facing story. The governance model — ownership, cadence, access control, feedback loop — is what keeps this from being a one-time deliverable that quietly goes out of date."
+      }
+    ],
+    "order": 0,
+    "published": false
+  },
+  {
+    "slug": "benefit-central-future-vision-strategy",
+    "name": "Benefit Central Future Vision Strategy",
+    "agency": "Publicis Sapient",
+    "client": "OptumRx",
+    "roleTitle": "Design Director",
+    "timeline": "Mar–Oct 2025 design sprint cycle · design-system adoption outcomes through Q2 2026",
+    "team": "Design Director (Nate Walsh) leading a 6-person team — CX Strategist, UX Lead, 2 UX Designers, Product Manager — plus cross-functional alignment with the Optum Design Standards/Skyline team",
+    "pillars": ["Experience-Led Strategy", "AI Healthcare", "Legacy Modernization"],
+    "priority": "High",
+    "contentFlag": "Both",
+    "featured": false,
+    "status": "In progress",
+    "dek": "Reimagining Benefit Central's Member and Claims experience around a future vision of AI-orchestrated, transparent service — work that went on to reshape how Optum's design system serves client-facing products.",
+    "outcomeHeadline": "Cross-team work born from this project was called out as a key unlock in Optum's Q2 2026 quarterly business review — unified design standards now serve both member and client experiences.",
+    "coverImageUrl": "",
+    "gallery": [],
+    "sections": [
+      {
+        "heading": "Executive Summary",
+        "body": "Design Director · Publicis Sapient, embedded at Optum · March–October 2025, with adoption outcomes through Q2 2026\n\nBenefit Central leadership asked for a holistic reimagining of the client experience. I led design and research strategy for a future-vision concept for Benefit Central's Member and Claims experience — grounded in real client pain points, oriented around a hyper-personalized AI layer, and built to hold up past the sprint that produced it."
+      },
+      {
+        "heading": "Context",
+        "body": "This project picked up where an earlier win left off. A clickable sales prototype had just proven that a modernized, unified story could win deals — Benefit Central leadership wanted to know if that same thinking could hold up as a real product roadmap, not just a pitch. They handed us an open mandate: conceptualize a holistic client experience for Members and Claims.\n\nThe pressure behind that mandate was real. Members were voicing coverage confusion and a lack of agency, pushing employers and health plans to demand better from their PBM. The gap between consumer-grade (B2C) and enterprise (B2B) expectations was closing fast, and PBM clients had a shrinking tolerance for clunky tools. Transparency had become a regulatory flashpoint, with legislation targeting PBM pricing practices directly. And digitally-native entrants like Capital Rx's JUDI were already winning deals on experience alone, against incumbents with far deeper capability.\n\nInside Optum, the client-facing tools — RxCOMET, Client Central, Extracts, ODIS, RxBuilder, RxClaim — had been built for internal operators, not for the external client workflows layered on top of them later. That mismatch showed up everywhere: content buried without hierarchy, inconsistent terminology and coded acronyms, no clear next step after completing a task, and missing functionality that forced clients into manual workarounds or a call to Optum."
+      },
+      {
+        "heading": "Your Role",
+        "body": "As Design Director, I led design and research strategy end to end across the initiative:\n\n- Directed a six-person cross-functional team — a CX strategist, UX lead, two UX designers, and a product manager — through a sprint-based process: foundations, Member designs, Claims designs, then refinement.\n- Ran task-focused discovery sessions with Optum account managers to surface real client goals — what I'd call the \"jobs to be done\" across Member and Claims workflows — rather than starting from the existing screens.\n- Directed iterative design and usability testing rounds, translating stakeholder feedback into navigation, layout, and functionality changes each sprint.\n- Authored the four experience principles — Seamless, Intuitive, User-Driven, Transparent — that became the filter for every design decision on the project, from information hierarchy down to which AI capabilities made the cut.\n- Defined and prototyped the future-vision state: OptumRx Companion, a hyper-personalized, predictive AI layer designed to help clients proactively service members instead of digging for answers.\n- Followed the work past the sprint: led the effort to extend Optum's Design Standards (Skyline) system to cover the data-dense, admin-level patterns the client experience actually needs, rather than letting the client surface fork into its own parallel system."
+      },
+      {
+        "heading": "Key Insights",
+        "body": "**Client goals aren't linear, and the product shouldn't pretend they are.** Where a client starts — Member or Claims — depends on their role and what information they were given during initial servicing. Member goals tend to be broad (account-wide history, full accumulator analysis); claims goals tend to be narrow (the history of one specific claim). The redesign had to support both paths without forcing an artificial funnel between them.\n\n**The tools were inherited, not designed, for this audience.** Every major pain point traced back to the fact that operator-built systems had simply been exposed to clients. Confusing acronyms, buried functionality (Print ID Card, Manage Diagnoses), and missing account features weren't UI polish problems — they were the direct cost of skipping client-specific design.\n\n**Speed and rigor are both non-negotiable — that's a design constraint, not a tradeoff to resolve.** Stakeholders wanted to move fast, but this is compliance-heavy, PBM-regulated work. The experience had to support quick task completion and the ability to verify and audit every action, at the same time.\n\n**The market had already validated the direction.** Satisfaction with the Big 3 PBMs had hit a multi-year low, and digitally-native competitors were winning purely on experience. That gave the team a mandate grounded in market reality, not just internal opinion, for treating this as a genuine future-vision effort rather than a maintenance update."
+      },
+      {
+        "heading": "Design Decisions",
+        "body": "**Reframed Benefit Central as an application, not a portal.** Global search across members, claims, prior authorizations, and invoices; real-time monitoring and notifications; account switching; and persistent quick actions — all designed to move clients from reading information to completing work.\n\n**Made the four experience principles do real work.** Seamless, Intuitive, User-Driven, and Transparent weren't a mission-statement exercise — they directly shaped decisions like consolidating claim sequences, elevating hidden filter fields, and giving every action a clear next step.\n\n**Designed toward the future state, not just current-state fixes.** The \"Imagine if…\" concept series pushed past incremental cleanup toward OptumRx Companion: personalized dashboards that adapt to a user's role, plain-language AI explanations of claim rejections, and Copilot-generated reporting — always framed as amplifying a client's judgment, not replacing it.\n\n**Chose to extend the existing design system instead of forking it.** Even though aligning with the Optum Design Standards/Skyline team meant slower, more collaborative work upfront, building a parallel system for client-specific needs would have recreated the exact fragmentation this project existed to solve."
+      },
+      {
+        "heading": "Visual Evidence",
+        "body": "TK — pull the Member/Claims detail page designs, the \"Imagine if…\" future-vision concept slides (personalized dashboard, AI claim explainer, Copilot report generation), and the Q2 2026 design-standards extension outcome slide for the published case study."
+      },
+      {
+        "heading": "Outcome & Impact",
+        "body": "Design foundations shipped for the Member and Claims sections of Benefit Central within the sprint cycle, with a validated, research-backed backlog handed to product for implementation.\n\nThe more durable outcome showed up two quarters later. The cross-team work to extend Optum's Design Standards system for client-specific, data-dense workflows was called out in Optum's Q2 2026 quarterly business review as a key unlock — unified design standards now serve both the member and client experience, with documented client-specific component patterns and faster delivery velocity from shared governance instead of duplicated effort.\n\nThe roadmap kept building on the direction this work set: Client Plan Approval, Claims Self Service, Plan Source of Truth, and new formulary and M3P microproducts all followed through 2026. It's proof that a design sprint aimed at a genuine future vision — not a screen-by-screen fix — can outlast its own timeline."
+      }
+    ],
+    "order": 1,
+    "published": false
+  },
+  {
+    "slug": "optimus-assistant",
+    "name": "Optum Assistant",
+    "agency": "Publicis Sapient",
+    "client": "OptumRx",
+    "roleTitle": "Associate Creative Director",
+    "timeline": "March 2026 – Ongoing",
+    "team": "",
+    "pillars": ["AI Healthcare"],
+    "priority": "High",
+    "contentFlag": "Both",
+    "featured": false,
+    "status": "In progress",
+    "dek": "AI-powered adjunctive agents that automate client workflows across OptumRx applications.",
+    "outcomeHeadline": "",
+    "coverImageUrl": "",
+    "gallery": [],
+    "sections": [
+      {
+        "heading": "Executive Summary",
+        "body": "Associate Creative Director · Publicis Sapient, embedded at Optum · Ongoing\n\nAn AI agentic assistant that explains, navigates, and resolves claim and coverage issues for OptumRx members, advocates, and clients — replacing a scripted virtual assistant with a true conversational resolution layer."
+      },
+      {
+        "heading": "Context",
+        "body": "OptumRx's prior virtual assistant could answer scripted questions, but anything beyond that meant a handoff — to a live agent, or to a different screen entirely. Meanwhile, nine claim rejection codes (refill-too-soon, product-not-covered, prior-auth-required, filled-after-coverage-term, plan-limits-exceeded, and others) account for over 93% of all rejected pharmacy claims in a rolling 12-month period, and every one of them still routed members, advocates, and plan administrators into manual, multi-step resolution.\n\nOptum Assistant was conceived as an adjunctive AI layer, not a replacement for human judgment — deliberately, since the wrong call on a coverage denial has real consequences for a member's care. It works across three levels of capability: Explain (plain-language answers to \"what happened and why\"), Navigate (guided next steps tailored to the situation), and Execute (resolving the issue directly — submitting overrides, updating claims — where policy allows)."
+      },
+      {
+        "heading": "Your Role",
+        "body": "I own the client-facing experience — how Optum Assistant shows up inside Benefit Central for plan administrators — and I've been building the internal case for AI adoption across the broader Optum Assistant program. That's meant defining the ideal-state conversation for each claim rejection scenario at each capability level, working across three personas (member, advocate, client) and three surfaces (Rx Mobile App, Advocate Central, Benefit Central), and pressure-testing the strategy with product and engineering partners as the program moved from a single pilot moment toward a phased 2026 rollout."
+      },
+      {
+        "heading": "Key Insights",
+        "body": "The program's own scale-readiness review named the risk directly: design capacity was being treated as shared and temporary at the exact moment the conversational surface area was multiplying. Nine rejection codes, three personas, three channels, three capability levels — each combination needing its own tone, error handling, and escalation logic, all while staying consistent enough that a member trusts the same \"voice\" whether they're talking to the assistant through the mobile app or an advocate is reading its explanation off Advocate Central.\n\nA single scripted moment — explaining why a Jardiance copay jumped from $150 to $492 — is a UI problem you can solve once. Scaling that pattern across dozens of live rejection scenarios without a shared model for what the assistant says when it doesn't know something, when it hands off to a human, and how a plain-language explanation stays accurate as the underlying claims logic changes, is a conversation-architecture problem. Nobody owned that as a dedicated discipline."
+      },
+      {
+        "heading": "Design Decisions",
+        "body": "I made the case for adding a dedicated conversational designer to the team rather than treating dialogue as a byproduct of visual and interaction design. The distinction mattered: a conversational designer owns the things that make an agentic assistant trustworthy at scale — a consistent voice across Explain, Navigate, and Execute; a shared pattern for uncertainty and escalation instead of one invented per scenario; and language that holds up as claims and formulary data changes underneath it. Folding that work into general UI design would have meant re-solving the same conversational problems separately for every one of the nine rejection codes, instead of building the system once and applying it everywhere."
+      },
+      {
+        "heading": "Visual Evidence",
+        "body": "No visuals published yet — this is active, in-progress work."
+      },
+      {
+        "heading": "Outcome & Impact",
+        "body": "Optum Assistant is mid-rollout, so the outcome here is structural rather than metric-driven for now: a dedicated conversational designer is now part of the team, giving the program a single owner for dialogue consistency, error handling, and escalation logic as it scales from Wave 1 (personalization, formulary, prior auth) through the full 2026 roadmap. I'll update this section with adoption and containment metrics once they're available post-launch."
+      }
+    ],
+    "order": 2,
+    "published": false
+  }
+]

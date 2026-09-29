@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Staggered Column Scroll — Demo</title>
+<!--
+  Recreates the scroll technique (not the assets) observed on ampli.net:
+  1. Sticky animated dot-matrix background behind the hero
+  2. A "curtain" of 8 page-colored columns with stepped heights that rise at
+     staggered rates (GSAP ScrollTrigger scrub, stagger from the end) and wipe
+     the background away as you scroll into the content
+  3. A scrubbed character highlight (chars 0.2 -> 1 opacity) on a big statement
+  4. Word-by-word rise-in reveals on headings when they enter the viewport
+  Swap the palette, copy and canvas effect for your own.
+-->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<style>
+  :root{
+    --bg:#f6f6f6;          /* page color — columns MUST match this */
+    --ink:#1b2426;
+    --accent:#c9dcae;
+    --accent-2:#e9f0c8;
+    --line:rgba(0,0,0,.07);
+    --cols:8;
+  }
+  *{box-sizing:border-box;margin:0}
+  html,body{background:var(--bg);color:var(--ink);font-family:"DM Sans",system-ui,sans-serif}
+  body{overflow-x:hidden}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;height:170vh}           /* extra height = scroll distance for the curtain */
+  .hero-bg{position:sticky;top:0;height:100vh;overflow:hidden;
+    background:radial-gradient(60% 60% at 60% 45%,var(--accent-2),var(--accent))}
+  .hero-bg canvas{position:absolute;inset:0;width:100%;height:100%}
+  .hero-copy{position:absolute;top:0;left:0;right:0;height:100vh;z-index:3;
+    display:flex;flex-direction:column;justify-content:center;padding:0 8vw;pointer-events:none}
+  .hero-copy h1{font-size:clamp(2.4rem,6vw,5.2rem);line-height:1;letter-spacing:-.03em;max-width:12ch}
+  .hero-copy p{margin-top:1.5rem;max-width:38ch;font-size:1.1rem;line-height:1.5}
+
+  /* Column curtain — sits over the sticky bg */
+  .columns{position:absolute;left:0;right:0;display:flex;z-index:2;pointer-events:none}
+  .columns > div{flex:1;background:var(--bg);border-left:1px solid var(--line);will-change:transform}
+  /* Set 1: hangs from the top of the hero, stepped bottom edge (frames the headline) */
+  .columns.top{top:0;height:100vh;align-items:flex-start}
+  /* Set 2: rises from below to cover the background, stepped top edge (the "staircase") */
+  .columns.rise{top:100vh;height:130vh}
+
+  /* ---------- CONTENT ---------- */
+  section.content{position:relative;z-index:4;background:var(--bg);padding:10vh 8vw 20vh}
+  .grid-lines{position:absolute;inset:0;display:grid;grid-template-columns:repeat(var(--cols),1fr);pointer-events:none}
+  .grid-lines span{border-left:1px solid var(--line)}
+  .statement{position:relative;font-size:clamp(2rem,5vw,4.2rem);line-height:1.1;letter-spacing:-.02em;max-width:20ch}
+  .statement .char{opacity:.2}
+  .reveal{position:relative;font-size:clamp(1.6rem,3.5vw,2.8rem);line-height:1.15;margin:30vh 0 1rem;max-width:22ch}
+  .reveal .w{display:inline-block;overflow:hidden;vertical-align:top}
+  .reveal .w > span{display:inline-block;transform:translateY(110%)}
+  .body{position:relative;max-width:48ch;line-height:1.6}
+  .spacer{height:60vh}
+
+  @media (prefers-reduced-motion:reduce){
+    .statement .char{opacity:1}
+    .reveal .w > span{transform:none}
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-bg"><canvas id="dots"></canvas></div>
+
+  <!-- set 1: heights are % of viewport, stepped like a bar chart -->
+  <div class="columns top">
+    <div style="height:62%"></div><div style="height:72%"></div><div style="height:74%"></div><div style="height:70%"></div>
+    <div style="height:66%"></div><div style="height:52%"></div><div style="height:50%"></div><div style="height:54%"></div>
+  </div>
+
+  <!-- set 2: equal full-height columns; the staircase comes purely from the staggered scrub -->
+  <div class="columns rise">
+    <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+  </div>
+
+  <div class="hero-copy">
+    <h1>Your headline goes right here</h1>
+    <p>A short supporting line that sits inside the stepped column frame before the curtain rises.</p>
+  </div>
+</section>
+
+<section class="content">
+  <div class="grid-lines"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+
+  <h2 class="statement" data-highlight>Scroll-linked type that fills in one character at a time as it moves up the screen.</h2>
+
+  <h3 class="reveal" data-reveal>Headings rise in word by word when they enter view</h3>
+  <p class="body">Body copy stays static so the motion reads as structure, not decoration.</p>
+
+  <h3 class="reveal" data-reveal>Every section uses the same eight-column grid</h3>
+  <p class="body">The faint vertical rules continue the column rhythm established by the curtain above.</p>
+  <div class="spacer"></div>
+</section>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- 1. Dot-matrix background (lightweight canvas stand-in for a WebGL scene) ---------- */
+(() => {
+  const c = document.getElementById('dots'), ctx = c.getContext('2d');
+  let w, h, dpr, t = 0;
+  const size = () => { dpr = Math.min(devicePixelRatio, 2); w = c.width = c.offsetWidth * dpr; h = c.height = c.offsetHeight * dpr; };
+  size(); addEventListener('resize', size);
+  const step = 9;
+  (function draw(){
+    ctx.clearRect(0,0,w,h); ctx.fillStyle = 'rgba(27,36,38,.55)';
+    const s = step * dpr;
+    for (let y = 0; y < h; y += s) for (let x = 0; x < w; x += s) {
+      const n = Math.sin(x*.004 + t) * Math.cos(y*.005 - t*.8) + Math.sin((x+y)*.002 + t*.5);
+      const r = Math.max(0, n) * 1.6 * dpr;
+      if (r > .3) { ctx.beginPath(); ctx.arc(x, y, r, 0, 6.283); ctx.fill(); }
+    }
+    if (!reduce) t += .006;
+    requestAnimationFrame(draw);
+  })();
+})();
+
+if (!reduce) {
+  /* ---------- 2. Column curtain ---------- */
+  // Set 1: slides up as the hero leaves; last column moves first (stagger from end)
+  gsap.to('.columns.top > div', {
+    y: '-20vh', ease: 'power3.out',
+    stagger: { each: 0.05, from: 'end' },
+    scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 0.9 }
+  });
+  // Set 2: rises from below and covers the sticky background
+  gsap.fromTo('.columns.rise > div', { y: '50vh' }, {
+    y: '-30vh', ease: 'power2.out',
+    stagger: { each: 0.05, from: 'end' },
+    scrollTrigger: { trigger: '.columns.rise', start: 'top 90%', end: 'top -30%', scrub: 0.9 }
+  });
+
+  /* ---------- 3. Scrubbed character highlight ---------- */
+  document.querySelectorAll('[data-highlight]').forEach(el => {
+    el.innerHTML = el.textContent.split(/(\s+)/).map(part =>
+      /\s+/.test(part) ? part : `<span style="display:inline-block;white-space:nowrap">${[...part].map(ch => `<span class="char">${ch}</span>`).join('')}</span>`
+    ).join('');
+    gsap.to(el.querySelectorAll('.char'), {
+      opacity: 1, stagger: 0.1, ease: 'none',
+      scrollTrigger: { trigger: el, start: 'top 90%', end: 'top 30%', scrub: true }
+    });
+  });
+
+  /* ---------- 4. Word-by-word reveal on enter ---------- */
+  document.querySelectorAll('[data-reveal]').forEach(el => {
+    el.innerHTML = el.textContent.trim().split(/\s+/).map(w => `<span class="w"><span>${w}</span></span>`).join(' ');
+    gsap.to(el.querySelectorAll('.w > span'), {
+      y: 0, duration: 0.9, ease: 'power3.out', stagger: 0.06,
+      scrollTrigger: { trigger: el, start: 'top 85%', once: true }
+    });
+  });
+}
+</script>
+</body>
+</html>
