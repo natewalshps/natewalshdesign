@@ -86,7 +86,7 @@ export function CaseStudyDetail({
 
       {(meta.length > 0 || caseStudy.outcomeHeadline) && (
         <section className="border-y border-border/60">
-          <div className="mx-auto grid max-w-6xl grid-cols-2 gap-8 px-6 py-8 sm:grid-cols-4">
+          <div className="mx-auto grid max-w-6xl grid-cols-2 gap-8 px-page py-8 sm:grid-cols-4">
             {meta.map(([label, value]) => (
               <div key={label}>
                 <p className="text-xs font-medium uppercase tracking-widest text-muted-foreground">
@@ -118,7 +118,7 @@ export function CaseStudyDetail({
         </motion.div>
       )}
 
-      <section className="mx-auto max-w-3xl px-6 py-24 sm:py-32">
+      <section className="mx-auto max-w-3xl px-page py-24 sm:py-32">
         <div className="flex flex-col gap-20 sm:gap-24">
           {caseStudy.sections.map((section, index) => (
             <motion.div
@@ -143,7 +143,7 @@ export function CaseStudyDetail({
       </section>
 
       {caseStudy.gallery.length > 0 && (
-        <section className="mx-auto max-w-6xl px-6 pb-24 sm:pb-32">
+        <section className="mx-auto max-w-6xl px-page pb-24 sm:pb-32">
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
             {caseStudy.gallery.map((src, i) => (
               <motion.img
@@ -163,7 +163,7 @@ export function CaseStudyDetail({
       )}
 
       {isHealthcare(caseStudy) && (
-        <section className="border-t border-border/60 px-6 py-[18vh]">
+        <section className="border-t border-border/60 px-page py-[18vh]">
           <WordReveal
             text="Building something complex in healthcare? Let's talk."
             className="max-w-[20ch] font-display text-[clamp(2rem,5vw,4.2rem)] font-semibold leading-[1.05] tracking-[-0.03em]"

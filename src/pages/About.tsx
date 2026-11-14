@@ -47,14 +47,14 @@ export function About() {
         eyebrow="About"
         headline="Experience strategy at the intersection of AI, healthcare, and product design."
       />
-      <section className="mx-auto max-w-3xl px-6 pb-24">
+      <section className="mx-auto max-w-3xl px-page pb-24">
         <div className="flex flex-col gap-10 text-lg leading-relaxed">
           <p>{getContent("about.positioning")}</p>
           <p className="text-muted-foreground">{getContent("about.bio")}</p>
         </div>
       </section>
 
-      <section className="mx-auto max-w-3xl px-6 pb-24">
+      <section className="mx-auto max-w-3xl px-page pb-24">
         <motion.h2
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -83,7 +83,7 @@ export function About() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-3xl px-6 pb-32">
+      <section className="mx-auto max-w-3xl px-page pb-32">
         <motion.h2
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}

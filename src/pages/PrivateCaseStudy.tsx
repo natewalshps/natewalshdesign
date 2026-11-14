@@ -39,7 +39,7 @@ export function PrivateCaseStudy() {
       <CaseStudyDetail
         caseStudy={caseStudy}
         banner={
-          <div className="border-b border-border/60 bg-muted px-6 py-2 text-center text-xs font-medium uppercase tracking-widest text-muted-foreground">
+          <div className="border-b border-border/60 bg-muted px-page py-2 text-center text-xs font-medium uppercase tracking-widest text-muted-foreground">
             Private client demo — not for external distribution
           </div>
         }

@@ -33,7 +33,7 @@ export function PasswordGate({ children }: { children: ReactNode }) {
   if (authed) return <>{children}</>
 
   return (
-    <section className="flex min-h-[70vh] items-center justify-center px-6 py-24">
+    <section className="flex min-h-[70vh] items-center justify-center px-page py-24">
       <form
         onSubmit={handleSubmit}
         className="flex w-full max-w-sm flex-col gap-5"

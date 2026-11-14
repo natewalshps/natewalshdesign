@@ -27,6 +27,11 @@ export interface CaseStudy {
   dek: string
   outcomeHeadline: string
   coverImageUrl: string
+  /** object-fit for the cover in editorial rows. Defaults to "contain" for
+   *  logo images (…logo.png/svg) and "cover" for everything else. */
+  coverFit?: "cover" | "contain"
+  /** object-position for the cover, e.g. "top". Defaults to "center". */
+  coverPosition?: string
   gallery: string[]
   /** Parsed from the Notion page body — one entry per H2 section
    *  (Executive Summary, Context, Your Role, Key Insights, Design

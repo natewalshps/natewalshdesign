@@ -7,14 +7,19 @@
     "roleTitle": "Associate Creative Director",
     "timeline": "Nov–Dec 2024 · 5 weeks",
     "team": "Design lead; cross-functional with OptumRx Sales, Capability, and Product teams",
-    "pillars": ["Experience-Led Strategy", "Legacy Modernization"],
+    "pillars": [
+      "Experience-Led Strategy",
+      "Legacy Modernization"
+    ],
     "priority": "Medium",
     "contentFlag": "Both",
     "featured": false,
     "status": "In progress",
     "dek": "A clickable Figma prototype and sales narrative that gave OptumRx's PBM sales team a modern, unified story to compete against consumer-grade new entrants.",
     "outcomeHeadline": "V1 shipped in 5 weeks, grounded in 40+ stakeholder interviews — with a governance model built in to keep it from going stale.",
-    "coverImageUrl": "",
+    "coverImageUrl": "/case-studies/pbm-clickable-sales-demo/pbm-cover.png",
+    "coverFit": "contain",
+    "coverPosition": "center",
     "gallery": [],
     "sections": [
       {
@@ -57,14 +62,20 @@
     "roleTitle": "Design Director",
     "timeline": "Mar–Oct 2025 design sprint cycle · design-system adoption outcomes through Q2 2026",
     "team": "Design Director (Nate Walsh) leading a 6-person team — CX Strategist, UX Lead, 2 UX Designers, Product Manager — plus cross-functional alignment with the Optum Design Standards/Skyline team",
-    "pillars": ["Experience-Led Strategy", "AI Healthcare", "Legacy Modernization"],
+    "pillars": [
+      "Experience-Led Strategy",
+      "AI Healthcare",
+      "Legacy Modernization"
+    ],
     "priority": "High",
     "contentFlag": "Both",
     "featured": false,
     "status": "In progress",
     "dek": "Reimagining Benefit Central's Member and Claims experience around a future vision of AI-orchestrated, transparent service — work that went on to reshape how Optum's design system serves client-facing products.",
     "outcomeHeadline": "Cross-team work born from this project was called out as a key unlock in Optum's Q2 2026 quarterly business review — unified design standards now serve both member and client experiences.",
-    "coverImageUrl": "",
+    "coverImageUrl": "/case-studies/benefit-central-future-vision-strategy/bc-cover.png",
+    "coverFit": "cover",
+    "coverPosition": "top",
     "gallery": [],
     "sections": [
       {
@@ -107,14 +118,18 @@
     "roleTitle": "Associate Creative Director",
     "timeline": "March 2026 – Ongoing",
     "team": "",
-    "pillars": ["AI Healthcare"],
+    "pillars": [
+      "AI Healthcare"
+    ],
     "priority": "High",
     "contentFlag": "Both",
     "featured": false,
     "status": "In progress",
     "dek": "AI-powered adjunctive agents that automate client workflows across OptumRx applications.",
     "outcomeHeadline": "",
-    "coverImageUrl": "",
+    "coverImageUrl": "/case-studies/optimus-assistant/assistant-cover.png",
+    "coverFit": "cover",
+    "coverPosition": "center",
     "gallery": [],
     "sections": [
       {
