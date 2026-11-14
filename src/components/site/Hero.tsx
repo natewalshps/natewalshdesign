@@ -20,7 +20,7 @@ export function Hero({
   return (
     <section
       className={cn(
-        "px-6 py-24 sm:py-32",
+        "px-page py-24 sm:py-32",
         dark && "bg-foreground text-background"
       )}
     >

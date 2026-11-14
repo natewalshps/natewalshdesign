@@ -10,6 +10,9 @@
 */
 :root {
   --radius: 0.5rem;
+  /* Horizontal page gutter — used by the px-page utility, the header and
+     the editorial rows so everything lines up on one edge. */
+  --page-x: 20px;
 
   --background: oklch(0.98 0.003 90);       /* off-white, ~#F6F5F2 */
   --foreground: oklch(0.16 0.006 285);      /* near-black, ~#111214 */
@@ -89,8 +92,8 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 
-  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Hind", ui-sans-serif, system-ui, sans-serif;
 }
 
 @layer base {
@@ -139,6 +142,16 @@
       animation: none;
     }
   }
+}
+
+@media (width >= 40rem) {
+  :root {
+    --page-x: 32px;
+  }
+}
+
+@utility px-page {
+  padding-inline: var(--page-x);
 }
 
 @keyframes marquee-scroll {
