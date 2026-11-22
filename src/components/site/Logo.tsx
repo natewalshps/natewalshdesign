@@ -1,16 +1,5 @@
 import type { SVGProps } from "react"
 
-/** width / height of the NW monogram's viewBox */
-export const LOGO_ASPECT = 58.94 / 32
-
-/** Where the monogram sits when docked in the header, left of the wordmark.
- *  Keep in sync with the wordmark's `left` in <Header />. */
-export function headerLogoBox(viewportWidth: number) {
-  const small = viewportWidth < 640
-  const h = small ? 18 : 22
-  return { h, w: h * LOGO_ASPECT, left: 24, top: small ? 25 : 21 }
-}
-
 /** NW monogram. Fills with currentColor so it can be tinted/animated. */
 export function Logo(props: SVGProps<SVGSVGElement>) {
   return (

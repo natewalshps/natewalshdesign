@@ -156,7 +156,7 @@ export function HomeHero({
         ))}
       </div>
 
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-[3] grid h-screen grid-cols-8 items-center px-6">
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-[3] grid h-screen grid-cols-8 items-center px-page">
         <div className="col-span-8 text-white sm:col-span-6 lg:col-span-6 xl:col-span-7">
           {eyebrow && (
             <motion.p

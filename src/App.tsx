@@ -21,7 +21,7 @@ function Shell() {
   return (
       <div className="flex min-h-svh flex-col">
         <Header />
-        <main className={pathname === "/" ? "flex-1" : "flex-1 pt-[70px]"}>
+        <main className={pathname === "/" ? "flex-1" : "flex-1 pt-[86px]"}>
           <PageTransition>
             <Routes>
               <Route path="/" element={<Home />} />
